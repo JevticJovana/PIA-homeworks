@@ -7,6 +7,7 @@ body {
     background-image: url("background.png");
     font-size: 12pt;
     font-family: Arial, Helvetica, sans-serif;
+    position: relative;
 }
 
 h1 {
@@ -20,37 +21,32 @@ h1 {
 }
 
 main {
-    /*display: flex;*/
     width: 55vw;
-    /*margin: auto auto;*/
     background-color: #EEEEEE;
-    border: 5px 5px grey;
-    /*padding: 5px;*/
+    outline: 5px solid grey;
+    outline-offset: 5px;
+    padding: 0.5em;
+    margin: auto;
 }
 
-.row:after {
+.row {
     content: "";
-    display: table;
+    display: flex;
     clear: both;
+    flex-direction: row;
+    overflow: hidden;
   }
 
 .leftcolumn {
-    float: left;
-    width: 70%;
+    flex-direction: column;
+    flex: 9;
 }
 
 .rightcolumn {
-    float: right;
-    width: 30%;
     background-color: #A2B964;
-}
-/* 
-@media screen and (max-width: 600px) {
-    .leftcolumn, .rightcolumn {
-      width: 100%;
-    }
-} */
-  
+    flex-direction: column;
+    flex: 1;
+} 
 
 .grade {
     background-image: url("images/rbg.png");
@@ -59,6 +55,11 @@ main {
     color: red;
     font-weight: bold;
     margin-bottom: 1rem;
+}
+
+.spangrade {
+    vertical-align: top;
+    position: absolute;
 }
 
 .review {
@@ -80,27 +81,28 @@ main {
     padding: 5px;
 }
 
-/* .critic {
+.critic {
     padding-right: 5px;
-} */
+}
 
 .publication {
     font-style: italic;
 }
 
-dt {
+dl {
     font-size: 12pt;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    margin-left: 15px;
-    padding-top: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
 dd {
     list-style-type: none;
-    margin-left: 40px;
+    /*margin-left: 40px;*/
+    padding-left: 40px;
     font-weight: bold;
-    /* padding-bottom: 15px; */
+    padding-bottom: 15px;
 }
 
 ul {
@@ -110,6 +112,12 @@ ul {
 footer {
     background-color: #A2B964;
     padding: 0.5em;
-    width: 55vw;
     text-align: center;
+    font-weight: bold;
+}
+
+#w3c {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }
