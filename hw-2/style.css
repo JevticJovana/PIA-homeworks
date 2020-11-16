@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#top {
+    background-color:rgb(231, 230, 230);
+}
+
+.navitems {
+    color: rosybrown;
+}
