@@ -10,3 +10,38 @@
 .navitems {
     color: rosybrown;
 }
+
+main {
+    padding-top: 70px;
+}
+
+img {
+    width: 100%;
+}
+
+#naslovna {
+    max-width: 100%;
+    height: auto;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.row {
+    padding-bottom: 70px;
+}
+
+.contact {
+    font-weight: bold; 
+    font-style: italic; 
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#w3c {
+    position: absolute;
+}
+
+.icon {
+    width: 25px;
+}
+
+

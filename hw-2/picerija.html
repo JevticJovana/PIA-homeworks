@@ -11,18 +11,18 @@
     <body>
         <header>
             <div class="container-fluid p-0">
-                <nav class="navbar fixed-top navbar-expand" id="top">
+                <nav class="navbar fixed-top navbar-expand navbar-light" style="background-color: #e3f2fd;" id="top">
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <div class="mr-auto"></div>
                         <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <a class="nav-link navitems" href="#">O nama <span class="sr-only">(current)</span></a>
+                                <a class="nav-link navitems" href="#about_us">O nama <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link navitems" href="#menu">Menu</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link navitems" href="#">Kontakt</a>
+                                <a class="nav-link navitems" href="#kontakt">Kontakt</a>
                             </li>
                         </ul>
                     </div>
@@ -30,79 +30,333 @@
             </div>
         </header>        
 
-        <main>
+        <main class="bg-light text-dark" >
             <div class="container text-center">
                 <div class="row">
                     <div class="col-md-4 col-sm-4"></div>
                     <div class="col-md-4 col-sm-8">
-                        <h1> Pizza Wonderland </h1>
+                        <h1><i> Pizza Wonderland </i></h1>
                         <h3> Vi poželite, mi ostvarimo </h3>
                     </div>
-                    <div class="col-md-4 col-sm-4"></div>
+                    <div class="col-md-5 col-sm-4"></div>
+                </div>
+                <div class=row>
+                    <div class="col-md-12 col-sm-12">
+                        <img id="naslovna" class="rounded" src="naslovna.JPG" alt="naslovna">
+                    </div> 
                 </div>
                 <section id="menu">
                     <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-5 col-sm-6">
-                            <h4> Domaćinska</h4>
-                            <img src="domacinska.JPG">
-                            <p> Sastav: Pelat, sir, šunka, pečenica, kulen, čajna, slanina, pavlaka, masline, feferoni </p>
+                        <div class="col-md-4 col-sm-4"></div>
+                        <div class="col-md-4 col-sm-8">
+                            <h3><i> Ponuda </i></h3>
                         </div>
-                        <div class="col-md-5 col-sm-6">
-                            <h4> Srpska </h4>
-                            <img src="sprska.JPG">
-                            <p> Sastav: Pelat, sir, pečenica, slanina, jaja, kajmak, šampinjoni, origano </p>
-                        </div>
-                        <div class="col-md-1"></div>
+                        <div class="col-md-5 col-sm-4"></div>
                     </div>
                     <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-5 col-sm-6">
-                            <h4> Chicken and cheese </h4>
-                            <img src="chicken.JPG">
-                            <p> Sastav: Pavlaka, Piletina, Feta, Tikvice, Origano </p>
+                        <div class="col-md-2 col-sm-2"> </div>
+                        <div class="col-md-4 col-sm-4">
+                            <h4><i> Capricciosa </i></h4>
+                            <img src="capricosa.JPG" alt="Capricciosa">
                         </div>
-                        <div class="col-md-5 col-sm-6">
-                            <h4> Specijal </h4>
-                            <img src="specijal.JPG">
-                            <p> Sastav: Pelat, sir, šunka, pečenica, kulen, šampinjoni, masline, pavlaka, origano </p>
+                        <div class="col-md-4 col-sm-4">
+                            <br><br>
+                            <p><b> Sastav: Pelat, sir, šunka, pečurke, zelene masline, origano </b></p>
+                            <form action="#korisnik">
+                                <b><label>Izaberite veličinu:</label><br>
+                                <input type="radio" id="22cm" name="velicina" value="22cm" checked>
+                                <label for="22cm">22cm - 220 dinara </label><br>
+                                <input type="radio" id="33cm" name="velicina" value="35cm">
+                                <label for="33cm">33cm - 580 dinara </label><br>
+                                <input type="radio" id="50cm" name="velicina" value="50cm">
+                                <label for="50cm">50cm - 960 dinara </label><br>
+                                <br>
+                                <label for="quantity">Količina:</label>
+                                <input type="number" id="quantity" name="quantity" min="1" max="5" step="1" value="1">
+                                <br><br>
+                                <input type="submit" value="Poruči" class="btn btn-secondary"></b>
+                            </form>
                         </div>
-                        <div class="col-md-1"></div>
+                        <div class="col-md-2 col-sm-2"> </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-5 col-sm-6">
-                            <h4> Capricciosa </h4>
-                            <img src="capricosa.JPG">
-                            <p> Sastav: Pelat, sir, šunka, pečurke, zelene masline, origano </p>
+                        <div class="col-md-2 col-sm-2"> </div>
+                        <div class="col-md-4 col-sm-4">
+                            <h4><i> Delikates </i></h4>
+                            <img src="delikates.JPG" alt="Delikates">
                         </div>
-                        <div class="col-md-5 col-sm-6">
-                            <h1> Pizza 6 sa slikom </h1>
+                        <div class="col-md-4 col-sm-4">
+                            <br><br>
+                            <p><b> Sastav: Pelat, sir, slanina, gorgonzola, suve šljive, peršun, susam </b></p>
+                            <form action="#korisnik">
+                                <b><label>Izaberite veličinu:</label><br>
+                                <input type="radio" id="22cm" name="velicina" value="22cm" checked>
+                                <label for="22cm">22cm - 270 dinara </label><br>
+                                <input type="radio" id="33cm" name="velicina" value="35cm">
+                                <label for="33cm">33cm - 710 dinara </label><br>
+                                <input type="radio" id="50cm" name="velicina" value="50cm">
+                                <label for="50cm">50cm - 1120 dinara </label><br>
+                                <br>
+                                <label for="quantity">Količina:</label>
+                                <input type="number" id="quantity" name="quantity" min="1" max="5" step="1" value="1">
+                                <br><br>
+                                <input type="submit" value="Poruči" class="btn btn-secondary"></b>
+                            </form>
                         </div>
-                        <div class="col-md-1"></div>
+                        <div class="col-md-2 col-sm-2"> </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-5 col-sm-6">
-                            <h1> Pizza 7 sa slikom</h1>
+                        <div class="col-md-2 col-sm-2"> </div>
+                        <div class="col-md-4 col-sm-4">
+                            <h4><i> Quattro - 4 vrste sira i piletina </i></h4>
+                            <img src="quattro.JPG" alt="Quattro">
                         </div>
-                        <div class="col-md-5 col-sm-6">
-                            <h1> Pizza 8 sa slikom </h1>
+                        <div class="col-md-4 col-sm-4">
+                            <br><br>
+                            <p><b>Sastav: Pelat, sir, gauda, gorgonzola, parmezan, pileća prsa, peršun</b></p>
+                            <form action="#korisnik">
+                                <b><label>Izaberite veličinu:</label><br>
+                                <input type="radio" id="22cm" name="velicina" value="22cm" checked>
+                                <label for="22cm">22cm - 270 dinara </label><br>
+                                <input type="radio" id="33cm" name="velicina" value="35cm">
+                                <label for="33cm">33cm - 710 dinara </label><br>
+                                <input type="radio" id="50cm" name="velicina" value="50cm">
+                                <label for="50cm">50cm - 1140 dinara </label><br>
+                                <br>
+                                <label for="quantity">Količina:</label>
+                                <input type="number" id="quantity" name="quantity" min="1" max="5" step="1" value="1">
+                                <br><br>
+                                <input type="submit" value="Poruči" class="btn btn-secondary"> </b>
+                            </form>
                         </div>
-                        <div class="col-md-1"></div>
+                        <div class="col-md-2 col-sm-2"> </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-5 col-sm-6">
-                            <h1> Pizza 9 sa slikom</h1>
+                        <div class="col-md-2 col-sm-2"> </div>
+                        <div class="col-md-4 col-sm-4">
+                            <h4><i> Domacinska </i></h4>
+                            <img src="domacinska.JPG" alt="Domacinska">
                         </div>
-                        <div class="col-md-5 col-sm-6">
-                            <h1> Pizza 10 sa slikom </h1>
+                        <div class="col-md-4 col-sm-4">
+                            <br><br>
+                            <p><b>Sastav: Pelat, sir, šunka, pečenica, kulen, čajna, slanina, pavlaka, masline, feferoni</b></p>
+                            <form action="#korisnik">
+                                <b><label>Izaberite veličinu:</label><br>
+                                <input type="radio" id="22cm" name="velicina" value="22cm" checked>
+                                <label for="22cm">22cm - 270 dinara </label><br>
+                                <input type="radio" id="33cm" name="velicina" value="35cm">
+                                <label for="33cm">33cm - 720 dinara </label><br>
+                                <input type="radio" id="50cm" name="velicina" value="50cm">
+                                <label for="50cm">50cm - 1170 dinara </label><br>
+                                <br>
+                                <label for="quantity">Količina:</label>
+                                <input type="number" id="quantity" name="quantity" min="1" max="5" step="1" value="1">
+                                <br><br>
+                                <input type="submit" value="Poruči" class="btn btn-secondary"> </b>
+                            </form>
                         </div>
-                        <div class="col-md-1"></div>
+                        <div class="col-md-2 col-sm-2"> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2"> </div>
+                        <div class="col-md-4 col-sm-4">
+                            <h4><i> Specijal </i></h4>
+                            <img src="specijal.JPG" alt="Specijal">
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <br><br>
+                            <p><b> Sastav: Pelat, sir, pečenica, slanina, jaja, kajmak, šampinjoni, origano</b></p>
+                            <form action="#korisnik">
+                                <b><label>Izaberite veličinu:</label><br>
+                                <input type="radio" id="22cm" name="velicina" value="22cm" checked>
+                                <label for="22cm">22cm - 240 dinara </label><br>
+                                <input type="radio" id="33cm" name="velicina" value="35cm">
+                                <label for="33cm">33cm - 670 dinara </label><br>
+                                <input type="radio" id="50cm" name="velicina" value="50cm">
+                                <label for="50cm">50cm - 1060 dinara </label><br>
+                                <br>
+                                <label for="quantity">Količina:</label>
+                                <input type="number" id="quantity" name="quantity" min="1" max="5" step="1" value="1">
+                                <br><br>
+                                <input type="submit" value="Poruči" class="btn btn-secondary"> </b>
+                            </form>
+                        </div>
+                        <div class="col-md-2 col-sm-2"> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2"> </div>
+                        <div class="col-md-4 col-sm-4">
+                            <h4> <i>Chicken </i></h4>
+                            <img src="chicken.JPG" alt="Chicken">
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <br><br>
+                            <p><b> Sastav: Pavlaka, Piletina, Feta, Tikvice, Origano</b></p>
+                            <form action="#korisnik">
+                                <b><label>Izaberite veličinu:</label><br>
+                                <input type="radio" id="22cm" name="velicina" value="22cm" checked>
+                                <label for="22cm">22cm - 270 dinara </label><br>
+                                <input type="radio" id="33cm" name="velicina" value="35cm">
+                                <label for="33cm">33cm - 710 dinara </label><br>
+                                <input type="radio" id="50cm" name="velicina" value="50cm">
+                                <label for="50cm">50cm - 1140 dinara </label><br>
+                                <br>
+                                <label for="quantity">Količina:</label>
+                                <input type="number" id="quantity" name="quantity" min="1" max="5" step="1" value="1">
+                                <br><br>
+                                <input type="submit" value="Poruči" class="btn btn-secondary"> </b>
+                            </form>
+                        </div>
+                        <div class="col-md-2 col-sm-2"> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2"> </div>
+                        <div class="col-md-4 col-sm-4">
+                            <h4><i> Srpska </i></h4>
+                            <img src="sprska.JPG" alt="Srpska">
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <br><br>
+                            <p><b> Sastav: Pelat, sir, pečenica, slanina, jaja, kajmak, šampinjoni, origano</b></p>
+                            <form action="#korisnik">
+                                <b><label>Izaberite veličinu:</label><br>
+                                <input type="radio" id="22cm" name="velicina" value="22cm" checked>
+                                <label for="22cm">22cm - 260 dinara </label><br>
+                                <input type="radio" id="33cm" name="velicina" value="35cm">
+                                <label for="33cm">33cm - 690 dinara </label><br>
+                                <input type="radio" id="50cm" name="velicina" value="50cm">
+                                <label for="50cm">50cm - 1120 dinara </label><br>
+                                <br>
+                                <label for="quantity">Količina:</label>
+                                <input type="number" id="quantity" name="quantity" min="1" max="5" step="1" value="1">
+                                <br><br>
+                                <input type="submit" value="Poruči" class="btn btn-secondary"> </b>
+                            </form>
+                        </div>
+                        <div class="col-md-2 col-sm-2"> </div>
                     </div>
                 </section>
+                <section id="korisnik">
+                    <div class="row">
+                        <form style="width: 70%; margin: auto;">
+                            <fieldset class="form-group">
+                                <legend><b><i>Registracija</i></b></legend>
+                    
+                                <div class="form-group">
+                                    <label for="username">Ime i prezime:</label>
+                                    <input id="username" class="form-control" type="text" 
+                                    name="username" placeholder="Petar Petrović" maxlength="30" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">E-mail:</label>
+                                    <input id="email"  type="email" name="email" placeholder="example@gmail.com" class="form-control" type="text" 
+                                    name="email" maxlength="20" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tel">Broj telefona:</label>
+                                    <input type="tel" id="tel" class="form-control" 
+                                    name="broj" maxlength="30" pattern="[0-9]{3}-[0-9]{7}" placeholder="061-3891644" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="komentar">Komentar:</label>
+                                    <input id="komentar" class="form-control" type="text" 
+                                    name="komentar" maxlength="150" placeholder="Npr. ako želite neki dodatak ili ste alergični na neki sastojak">
+                                </div>
+                            </fieldset> 
+                    
+                    
+                            <div class="form-group">
+                                Pol:
+                            
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="pol_m" 
+                                    class="form-check-input" name="pol" value="musko" 
+                                    checked> 
+                                    <label for="pol_m" class="form-check-label"> 
+                                        Muško 
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" id="pol_z" 
+                                    class="form-check-input" name="pol" value="zensko"> 
+                                    <label for="pol_z" class="form-check-label"> 
+                                        Žensko 
+                                    </label>
+                                </div>
+                            </div>
+                    
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" id="vesti" 
+                                class="form-check-input"  name="vesti" value="vesti"> 
+                                <label for="vesti" class="form-check-label"> 
+                                    Želim da primam vesti
+                                </label>
+                            </div>
+                    
+                            
+                            <div class="form-group text-center">
+                                <input type="submit" value="Registruj se!" class="btn 
+                                btn-outline-success btn-lg">
+                                <input type="reset" value="Poništi unos!" class="btn 
+                                btn-danger btn-sm">
+                            </div>
+                        </form>
+                    </div>
+                </section>
+                <section id="about_us">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4"></div>
+                        <div class="col-md-4 col-sm-4">
+                            <h1 style="text-align: center; font-style: italic;"> Ko smo mi? </h1>
+                        </div>
+                        <div class="col-sm-4 col-md-4"></div>
+                    </div>
+                    <div class="row">
+                        <p style="font-style: italic;"> Pizza Wonderland je porodična firma osnovana 2010. godine u Kragujevcu, od strane porodice koja je želela da omogući svom
+                            gradu najbolju pizzu, po italijanskoj, originalnoj recepturi. Od konkurencije nas razlikuje to što možete sami, dodavanjem komentara prilikom registracije,
+                            da napravite pizzu po svojoj želji, koristeći osnovni šablon neke od pici iz naše ponude, potpuno besplatno!
+                            Svaki dodatak koji poželite, postaće deo Vaše porudžbine, bez ikakvih dodatnih troškova (naravno, ukoliko takav dodatak postoji, a i ako ne postoji,
+                            naše je da ga nabavimo, samo možda porudžbina malo zakasni, u slučaju da neko treba da ode do Zanzibara po dodatak :-) )!
+                            Ukoliko su Vam potrebne dodatne informacije, dostupni smo 24/7 putem 
+                            Facebook i Instagram stranice.
+                            Nadamo se da ćete postati deo naše porodice i uživati u našoj ponudi!
+                        </p>
+                    </div>
+                </section> 
             </div>
         </main>
+
+        <footer id="kontakt" style="background-color: #e3f2fd;">
+            <br><br>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4">
+                        <p><b> Radno vreme: <br> </b>
+                        <i> Ponedeljak - petak: 8h - 00h <br>
+                            Subota: 8h - 01h <br>
+                            Nedelja: 10h - 23h
+                        </i></p>
+                        <p><b> Kontakt: <br> </b>
+                            <i>+381 64-2121111</i></p>
+                        <p><b> E-mail: <br> </b>
+                            <i>pizzawonderland@gmail.com</i></p>
+                        <p><b> Adresa: <br></b>
+                            <i>Ulica pobednika 4, lokal broj 4 </i></p>
+                    </div>
+                    <div class="col-md-4 col-sm-4"> </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div id="w3c">
+                            <a href="https://www.instagram.com/?hl=sr" target="_blank"><img class="icon" src="insta.jpg" alt="Instagram" /> Facebook</a><br />
+                            
+                            <a href="https://www.facebook.com/" target="_blank"><img class="icon" src="face.jpg" alt="Facebook" /> Instagram</a><br>
+                        </div>
+                        <img src="logo.JPG" alt="Logo">
+                    </div>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>
