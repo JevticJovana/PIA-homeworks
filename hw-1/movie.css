@@ -20,32 +20,35 @@ h1 {
     margin-bottom: 15px;
 }
 
-main {
+main { 
     width: 55vw;
     background-color: #EEEEEE;
-    outline: 5px solid grey;
-    outline-offset: 5px;
     padding: 0.5em;
     margin: auto;
+    min-width: 400px;
+    /* outline: 5px solid grey;
+    outline-offset: 5px; */
 }
 
 .row {
     content: "";
     display: flex;
     clear: both;
+    flex-wrap: wrap;
     flex-direction: row;
     overflow: hidden;
   }
 
 .leftcolumn {
     flex-direction: column;
-    flex: 9;
+    flex: 7;
+    min-width: 300px;
 }
 
 .rightcolumn {
     background-color: #A2B964;
     flex-direction: column;
-    flex: 1;
+    flex: 3;
 } 
 
 .grade {
@@ -65,6 +68,7 @@ main {
 .review {
     font-size: 13pt;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: italic;
     width: 90%;
     background-color: #FFFFFF;
     border: 2px solid #CCCCCC;
@@ -117,7 +121,8 @@ footer {
 }
 
 #w3c {
-    position: absolute;
+    /* position: absolute;
     bottom: 5px;
-    right: 5px;
+    right: 5px; */
+    text-align: right;
 }
