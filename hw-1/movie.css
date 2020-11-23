@@ -26,8 +26,6 @@ main {
     padding: 0.5em;
     margin: auto;
     min-width: 400px;
-    /* outline: 5px solid grey;
-    outline-offset: 5px; */
 }
 
 .row {
@@ -99,11 +97,11 @@ dl {
     font-weight: bold;
     padding-right: 15px;
     padding-left: 15px;
+    padding-top: 15px;
 }
 
 dd {
     list-style-type: none;
-    /*margin-left: 40px;*/
     padding-left: 40px;
     font-weight: bold;
     padding-bottom: 15px;
@@ -121,8 +119,5 @@ footer {
 }
 
 #w3c {
-    /* position: absolute;
-    bottom: 5px;
-    right: 5px; */
     text-align: right;
 }
