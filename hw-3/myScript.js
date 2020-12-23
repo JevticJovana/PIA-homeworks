@@ -22,24 +22,29 @@ var intervalDelay;
 
 function showRegistration() {
 
+	bodyContainer = document.createElement("div");
+	bodyContainer.setAttribute("class", "container");
+	bodyContainer.setAttribute("id", "bodyContainer");
+	document.body.appendChild(bodyContainer);
+
 	registrationForm = document.createElement("div");
 	registrationForm.setAttribute("id", "registration");
 	registrationForm.setAttribute("class", "row");
-	registrationForm.setAttribute("style", "width: 70%; margin:auto;");
-	document.body.appendChild(registrationForm);
+	registrationForm.setAttribute("style", "margin:auto;");
+	document.getElementById("bodyContainer").appendChild(registrationForm);
 
-	registrationFormHTML = '<div class="col-md-6 col-md-offset-3">'
-		+ '<h1>Registration Form</h1><hr />'
+	registrationFormHTML = '<div class="col-md-3 col-sm-3"></div><div class="col-md-6 col-md-offset-3 col-sm-6">'
+		+ '<h1><i><b>Prijava za kviz opšteg znanja</i></b></h1><hr /><br>'
 		+ '<form action="#" name="regForm" id="regForm"><div class="form-group">'
-		+ '<label>Name: </label><input type="text" class="form-control" id="name" placeholder="Name" />'
+		+ '<label><b><i>Korisničko ime: </b><i></label><input type="text" class="form-control" id="name" placeholder="Name" />'
 		+ '<p id="p1"></p></div>'
-		+ '<div class="form-group"><label>Email: </label>'
-		+ '<input type="email" class="form-control" id="email" placeholder="Email" />'
+		+ '<div class="form-group"><label><b><i>E-mail: </b></i></label>'
+		+ '<input type="email" class="form-control" id="email" placeholder="me@example.com" />'
 		+ '<p id="p2"></p></div><div class="form-group">'
-		+ '<label>Password: </label>'
+		+ '<label><b><i>Lozinka: </b></i></label>'
 		+ '<input type="password" class="form-control" id="password" placeholder="Password" />'
 		+ '<p id="p3"></p></div>'
-		+ '<div class="form-group"><input type="submit" class="btn btn-primary btn-block" id="submit" />'
+		+ '<div class="form-group"><input type="submit" class="btn btn-primary btn-block" id="submit" value="Prijavi se" />'
 		+ '</div></form></div>'
 
 	registrationForm.innerHTML = registrationFormHTML;
@@ -49,19 +54,28 @@ function showRegistration() {
 			nameFORM = $("#name").val();
 			emailFORM = $("#email").val();
 			passFORM = $("#password").val();
+			mailFormat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+			$("#p1").text("");
+			$("#p2").text("");
+			$("#p3").text("");
 
 			if (nameFORM.length == "") {
-				$("#p1").text("Please enter your name");
+				$("#p1").text("Niste uneli korisničko ime");
 				$("#name").focus();
 				return false;
 			}
-			else if (emailFORM.length == "") {
-				$("#p2").text("Please enter your email address");
+			else if (!(emailFORM.match(mailFormat))) {
+				$("#p2").text("Niste uneli ispravnu e-mail adresu");
 				$("#email").focus();
 				return false;
 			}
+			// else if (emailFORM.length == "") {
+			// 	$("#p2").text("Niste uneli e-mail adresu");
+			// 	$("#email").focus();
+			// 	return false;
+			// }
 			else if (passFORM.length == "") {
-				$("#p3").text("Please enter your password");
+				$("#p3").text("Niste uneli lozinku");
 				$("#Password").focus();
 				return false;
 			}
@@ -102,39 +116,38 @@ function showRules() {
 	usernameFORM = nameFORM;
 
 	childNode = document.getElementById("registration");
-	document.body.removeChild(childNode);
+	document.getElementById("bodyContainer").removeChild(childNode);
 
 	gameRules = document.createElement("div");
 	gameRules.setAttribute("id", "rules");
 	gameRules.setAttribute("class", "container text-center");
-	document.body.appendChild(gameRules);
+	document.getElementById("bodyContainer").appendChild(gameRules);
 
-	gameRulesHTML = '<div class="row"><div class="col-md-4 col-sm-4"></div><div class="col-md-4 col-sm-4">Pravila igre </div><div class="col-md-4 col-sm-4"></div></div>';
+	gameRulesHTML = '<div class="row"><div class="col-md-4 col-sm-4"></div><div class="col-md-4 col-sm-4"><br><br><h2>Pravila igre </h2></div><div class="col-md-4 col-sm-4"></div></div>';
 	gameRulesHTML += '<div class="row">';
 	gameRulesHTML += '<div class="col-md-12 col-sm-12">';
-	gameRulesHTML += '<p> Kviz ima 10 pitanja. </p>';
-	gameRulesHTML += '<p> Mogu se pojaviti pitanja sa ponuđenim odgovorima, a neka mogu podrazumevati unos sa tastature. </p>';
-	gameRulesHTML += '<p> Za svako pitanje igrač ima 20 sekundi da odgovori. Postoji tajmer koji će Igraču odbrojavati vreme.'
+	gameRulesHTML += '<br><br><p id="gameRules"> Kviz ima 10 pitanja.<br>';
+	gameRulesHTML += 'Mogu se pojaviti pitanja sa ponuđenim odgovorima, a neka mogu podrazumevati unos sa tastature.<br>';
+	gameRulesHTML += 'Za svako pitanje igrač ima 20 sekundi da odgovori. Postoji tajmer koji će Igraču odbrojavati vreme.<br>'
 		+ 'Ukoliko igrač odgovori na pitanje u predviđenom roku, prikazuje mu se tačan odgovor,'
-		+ 'kao i status da li je njegov odgovor tačan. Nakon toga se učitava sledeće pitanje.</p>';
-	gameRulesHTML += '<p> Ukoliko igrač ne odgovori u predviđenom intervalu na pitanje, učitava se naredno i '
-		+ 'podrazumeva se da je dati odgovor netačan.</p>';
-	gameRulesHTML += '<p>Igrač može da preskoči pitanje, ali ne i da se vrati na preskočeno pitanje.</p>';
-	gameRulesHTML += '<p> Igrač može da odustane od igre u svakom trenutku. Rezultat se čuva. </p>';
-	gameRulesHTML += '<p> Na kraju igre, igrač dobija informaciju o svom učinku, odnosno broju osvojenih poena.</p>';
-	gameRulesHTML += '<p> Ukoliko je igrač razumeo pravila igre, igru može pokrenuti klikom na dugme \'Pokreni kviz\'. </p>';
-	gameRulesHTML += '<input type="submit" value="Pokreni kviz" class="btn btn-secondary" onclick="startQuiz()"></b>         ';
-	gameRulesHTML += '<input type="submit" value="Odustani" class="btn btn-secondary" onclick="leave()"></b>';
+		+ 'kao i status da li je njegov odgovor tačan. Nakon toga se učitava sledeće pitanje.<br>';
+	gameRulesHTML += 'Ukoliko igrač ne odgovori u predviđenom intervalu na pitanje, učitava se naredno i '
+		+ 'podrazumeva se da je dati odgovor netačan.<br>';
+	gameRulesHTML += 'Igrač može da preskoči pitanje, ali ne i da se vrati na preskočeno pitanje.<br>';
+	gameRulesHTML += 'Igrač može da odustane od igre u svakom trenutku.<br>';
+	gameRulesHTML += 'Na kraju igre, igrač dobija informaciju o svom učinku, odnosno broju osvojenih poena.<br>';
+	gameRulesHTML += 'Ukoliko je igrač razumeo pravila igre, igru može pokrenuti klikom na dugme \'Pokreni kviz\'. </p>';
+	gameRulesHTML += '<b><button type="button" class="btn btn-success" onclick="startQuiz()">Pokreni kviz</button></b>';
+	gameRulesHTML += '<b><button type="button" class="btn btn-secondary" onclick="leave()">Odustani</button></b>';
 	gameRulesHTML += '</div></div>'
 
 	gameRules.innerHTML = gameRulesHTML;
 
 }
 
-
 function leave() {
 	childNode = document.getElementById("rules");
-	document.body.removeChild(childNode);
+	document.getElementById("bodyContainer").removeChild(childNode);
 
 	nameFORM = "";
 	passFORM = "";
@@ -146,53 +159,52 @@ function leave() {
 function startQuiz() {
 
 	childNode = document.getElementById("rules");
-	document.body.removeChild(childNode);
+	document.getElementById("bodyContainer").removeChild(childNode);
 
 	startQuizTimer = document.createElement("div");
 	startQuizTimer.setAttribute("id", "timer");
-	startQuizTimerHTML = '<p id="countdown"></p>';
+	startQuizTimer.setAttribute("class", "container");
+	startQuizTimerHTML = '<div class="row"><div class="col-md-6 col-sm-6" id="currScore"><p>Rezultat: </p><p id="score"></p></div><div class="col-sm-6 col-md-6"><p id="questionTimer"></p>'
+		+ '<p id="countdown"></p></div></div><div class="row"><div class="col-sm-4 col-sm-4"></div><div class="col-sm-4 col-md-4"><p style="text-align:center;" id="questionNumber"></p></div><div class="col-sm-4 col-sm-4"></div>';
 
 	startQuizTimer.innerHTML = startQuizTimerHTML;
-	document.body.appendChild(startQuizTimer);
+	document.getElementById("bodyContainer").appendChild(startQuizTimer);
 
 	startQuizQuestions = document.createElement("div");
 	startQuizQuestions.setAttribute("id", "questions");
-	startQuizQuestionsHTML = '<p style="font-size: x-large; font-weight: bolder; text-align: center;" id="quesNum"></p>'
-		+ '<input readonly type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="font-weight: bold; font-size: x-large; text-align: center;" id="ques">'
+	startQuizQuestionsHTML = '<input readonly type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="font-weight: bold; font-size: x-large; text-align: center;" id="ques">'
 		+ '<input type="button" id="option1" value="" class="btn btn-primary btn-lg btn-block" onclick="checkAnswer(this.id)">'
 		+ '<input type="button" id="option2" value="" class="btn btn-primary btn-lg btn-block" onclick="checkAnswer(this.id)">'
 		+ '<input type="button" id="option3" value="" class="btn btn-primary btn-lg btn-block" onclick="checkAnswer(this.id)">'
 		+ '<input type="button" id="option4" value="" class="btn btn-primary btn-lg btn-block" onclick="checkAnswer(this.id)">'
 		+ '<input type="button" id="skipQuestion" value=" Preskoči" class="btn btn-secondary btn-lg btn-block" onclick="skipQuestion()">'
-		+ '<input type="button" id="skipAll" value="Završi igru" class="btn btn-secondary btn-lg btn-block" onclick="showResult()">'
-		+ '<div id="currScore"></div>';
+		+ '<input type="button" id="skipAll" value="Završi igru" class="btn btn-secondary btn-lg btn-block" onclick="showResult()">';
 
 	startQuizQuestions.innerHTML = startQuizQuestionsHTML;
-	document.body.appendChild(startQuizQuestions);
+	document.getElementById("bodyContainer").appendChild(startQuizQuestions);
 
 	startQuizQuestions = document.createElement("div");
 	startQuizQuestions.setAttribute("id", "textQuest");
 
-	startQuizQuestionsHTML = '<p style="font-size: x-large; font-weight: bolder; text-align: center;" id="quesNumText"></p>'
-		+ '<input readonly type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="font-weight: bold; font-size: x-large; text-align: center;" id="quesText">'
+	startQuizQuestionsHTML = '<input readonly type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="font-weight: bold; font-size: x-large; text-align: center;" id="quesText">'
 		+ '<input id="textInput" type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" '
 		+ 'name=textInput" maxlength="30">'
 		+ '<input type="button" id="textAns" value="Odgovori" class="btn btn-primary btn-lg btn-block" onclick="checkAnswerText(this.id)">'
 		+ '<input type="button" id="skipInputQuestion" value=" Preskoči" class="btn btn-secondary btn-lg btn-block" onclick="skipQuestion()">'
-		+ '<input type="button" id="skipInputAll" value="Završi igru" class="btn btn-secondary btn-lg btn-block" onclick="showResult()">'
-		+ '<div id="currScoreSpec"></div>';
+		+ '<input type="button" id="skipInputAll" value="Završi igru" class="btn btn-secondary btn-lg btn-block" onclick="showResult()">';
 
 	startQuizQuestions.innerHTML = startQuizQuestionsHTML;
-	document.body.appendChild(startQuizQuestions);
+	document.getElementById("bodyContainer").appendChild(startQuizQuestions);
 
 	for (i = 0; i < usersCounter; i++) {
-		if (usernameFORM == usersJSON[i].username) {
+		if (usernameFORM.toLowerCase() == usersJSON[i].username.toLowerCase()) {
 			index = i;
 			lastScore = usersJSON[i].score;
 			break;
 		}
 	}
 
+	time = 20;
 	$(document).ready(function () {
 		showQuestion();
 	});
@@ -218,13 +230,13 @@ function showQuestion() {
 		document.getElementById("skipInputAll").disabled = false;
 		document.getElementById("skipInputQuestion").disabled = false;
 		document.getElementById("textAns").disabled = false;
-		document.getElementById("currScoreSpec").innerHTML = "Rezultat: " + score;
+		document.getElementById("score").innerHTML = score;
 		document.getElementById("textAns").style.removeProperty("background-color");
 		document.getElementById("textInput").value = "";
 		document.getElementById("questions").style.display = "none";
 		document.getElementById("textQuest").style.display = "block";
 		correctAnswer = questionsJSON.quiz["q" + questionCounter].answer;
-		document.getElementById("quesNumText").innerHTML = questionCounter + ". PITANJE:"
+		document.getElementById("questionNumber").innerHTML = questionCounter + ". PITANJE:"
 		document.getElementById("quesText").value = questionsJSON["quiz"]["q" + questionCounter].question;
 
 		++questionCounter;
@@ -238,7 +250,7 @@ function showQuestion() {
 		document.getElementById("skipAll").disabled = false;
 		document.getElementById("skipQuestion").disabled = false;
 
-		document.getElementById("currScore").innerHTML = "Rezultat: " + score;
+		document.getElementById("score").innerHTML = score;
 		document.getElementById("option1").style.removeProperty("background-color");
 		document.getElementById("option2").style.removeProperty("background-color");
 		document.getElementById("option3").style.removeProperty("background-color");
@@ -249,7 +261,7 @@ function showQuestion() {
 		document.getElementById("option3").disabled = false;
 		document.getElementById("option4").disabled = false;
 
-		document.getElementById("quesNum").innerHTML = questionCounter + ". PITANJE:"
+		document.getElementById("questionNumber").innerHTML = questionCounter + ". PITANJE:"
 		document.getElementById("ques").value = questionsJSON["quiz"]["q" + questionCounter].question;
 		document.getElementById("option1").value = questionsJSON["quiz"]["q" + questionCounter].answers[0];
 		document.getElementById("option2").value = questionsJSON["quiz"]["q" + questionCounter].answers[1];
@@ -264,7 +276,6 @@ function showQuestion() {
 		++questionCounter;
 	}
 }
-
 
 function skipQuestion() {
 	clearInterval(intervalQuestion);
@@ -310,6 +321,7 @@ function skipQuestion() {
 	document.getElementById("skipQuestion").disabled = true;
 	document.getElementById("skipInputAll").disabled = true;
 	document.getElementById("skipInputQuestion").disabled = true;
+	document.getElementById("textAns").disabled = true;
 }
 
 function checkAnswer(clicked) {
@@ -354,22 +366,27 @@ function checkAnswerText(clicked) {
 		document.getElementById(clicked).style.backgroundColor = "green";
 	}
 	else {
-		document.getElementById("textInput").value = "Tacan odgovor je: " + correctAnswer;
+		document.getElementById("textInput").value = "Tačan odgovor je: " + correctAnswer;
 		document.getElementById(clicked).style.backgroundColor = "red";
 	}
 
-	document.getElementById(clicked).disabled = true;
+	document.getElementById("textAns").disabled = true;
 	document.getElementById("skipInputAll").disabled = true;
 	document.getElementById("skipInputQuestion").disabled = true;
 }
 
 
 function updateCountdown() {
+	document.getElementById("questionTimer").innerHTML = "Preostalo vreme:";
 	document.getElementById("countdown").innerHTML = time + "s";
 	timeDelay = 5;
-	if (time-- > 0) {
-		time;
-		document.getElementById("countdown").innerHTML = time + "s";
+	console.log(time);
+	if (time > 0) {
+		time--;
+		document.getElementById("countdown").style.color = "green";
+		if (time < 5) {
+			document.getElementById("countdown").style.color = "red";
+		}
 	}
 	else {
 		clearInterval(intervalQuestion);
@@ -379,9 +396,11 @@ function updateCountdown() {
 
 function updateDelay() {
 	time = 20;
+	document.getElementById("questionTimer").innerHTML = "Sledeće pitanje kreće za:";
 	document.getElementById("countdown").innerHTML = timeDelay + "s";
-	if (timeDelay-- > 0) {
-		document.getElementById("countdown").innerHTML = timeDelay + "s";
+	if (timeDelay > 0) {
+		timeDelay--;
+		document.getElementById("countdown").style.color = "blue";
 	}
 	else {
 		clearInterval(intervalDelay);
@@ -394,18 +413,20 @@ function showResult() {
 	clearInterval(intervalDelay);
 
 	childNode = document.getElementById("questions");
-	document.body.removeChild(childNode);
+	document.getElementById("bodyContainer").removeChild(childNode);
 
 	childNode = document.getElementById("textQuest");
-	document.body.removeChild(childNode);
+	document.getElementById("bodyContainer").removeChild(childNode);
 
 	childNode = document.getElementById("timer");
-	document.body.removeChild(childNode);
+	document.getElementById("bodyContainer").removeChild(childNode);
 
 	result = document.createElement("div");
 	result.setAttribute("id", "results");
 
-	resultHTML = '<table class="table table-striped"><thead><tr><th scope="col">#</th><th scope="col">Username</th><th scope="col">Rezultat</th></tr></thead><tbody>'
+	resultHTML = '<h1 style="text-align:center"><b><i> Najbolji rezultati </h1></b></i><hr>';
+	resultHTML += '<p id="userEndGame"> Igrač: ' + '<font color="red">'+ usersJSON[usersCounter].username + '</font>' + '<br> Rezultat: ' + '<font color="red">' + usersJSON[usersCounter].score + '</font></p>';
+	resultHTML += '<table class="table table-striped" id="tableResults"><thead><tr><th scope="col">#</th><th scope="col">Korisničko ime</th><th scope="col">Rezultat</th></tr></thead><tbody>';
 
 	if (index == -1) {
 		usersCounter++;
@@ -445,19 +466,19 @@ function showResult() {
 	score = 0;
 
 	for (i = 0; i < usersCounter; i++) {
-		resultHTML += '<tr><th scope="row">' + (i + 1) + '</th><td>' + usersJSON[i].username + '</td><td>' + usersJSON[i].score + '</td></tr>';
+		resultHTML += '<tr><th scope="row">' + (i + 1) + '</th><td class="userTable">' + usersJSON[i].username + '</td><td class="scoreTable">' + usersJSON[i].score + '</td></tr>';
 	}
 
-	resultHTML += '</tbody></table>';
+	resultHTML += '</tbody></table><hr>';
 	resultHTML += '<input type="button" id="nazad" value="Nazad" class="btn btn-secondary btn-lg btn-block" onclick="startOver()">';
 
 	result.innerHTML = resultHTML;
-	document.body.appendChild(result);
+	document.getElementById("bodyContainer").appendChild(result);
 }
 
 function startOver() {
 	childNode = document.getElementById("results");
-	document.body.removeChild(childNode);
+	document.getElementById("bodyContainer").removeChild(childNode);
 
 	usernameFORM = "";
 	nameFORM = "";
