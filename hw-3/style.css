@@ -26,25 +26,23 @@ h1 {
 #questions {
 	background-color: white;
 	
-	position: absolute;
+	/* position: absolute;
 	top:0;
 	bottom: 0;
 	left: 0;
-	right: 0;
+	right: 0; */
   	
 	margin: auto;
-}
-
-#countdownSpec {
-	font-size: 35px;
-	font-weight: bold;
-	text-align: right;
 }
 
 #countdown {
 	font-size: 35px;
 	font-weight: bold;
 	text-align: right;
+	border:3px; 
+	border-style:solid; 
+	border-color:#FF0000; 
+	/* padding: 1em; */
 }
 
 #currScore {
@@ -55,4 +53,9 @@ h1 {
 #currScoreSpec {
 	font-size: 35px;
 	font-weight: bold;
+}
+
+#p1, #p2, #p3
+{
+  color: #FF0000;
 }
