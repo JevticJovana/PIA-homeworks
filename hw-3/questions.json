@@ -1,0 +1,113 @@
+{
+    "quiz": {
+        "q1": {
+            "question": "Koliko sezona ima serija Game of Thrones?",
+            "answers": [
+                "3 sezone",
+                "4 sezone",
+                "6 sezona",
+                "8 sezona"
+            ],
+            "answer": "8 sezona"
+        },
+
+        "q2": { 
+            "question": "Ko je napisao knjigu Majstor i Margarita?",
+            "answers": [
+                "Lav Nikolajevič Tolstoj",
+                "Fjodor Mihajlovič Dostojevski",
+                "Mihail Bulgakov",
+                "Evgenije Onjegin"
+            ],
+            "answer": "Mihail Bulgakov"
+        },
+
+        "q3": {
+            "question": "Ko se smatra osnivačem teorije evolucije?",
+            "answers": [
+                "Isak Njutn",
+                "Sigmund Frojd",
+                "Čarls Darvin",
+                "Fridrih Niče"
+            ],
+            "answer": "Čarls Darvin"
+        },
+
+        "q4": {
+            "question": "Kako se naziva kanal koji spaja Atlantik i Pacifik?",
+            "answers": [
+                "Latinski",
+                "Bermudski",
+                "Panamski",
+                "Južnoamerički"
+            ],
+            "answer": "Panamski"
+        }, 
+
+        "q5": {
+            "question": "Katalonija je deo?",
+            "answers": [
+                "Portugala",
+                "Maroka",
+                "Španije",
+                "Tunisa"
+            ],
+            "answer": "Španije"
+        },
+
+        "q6": {
+            "question": "Had je bog?",
+            "answers": [
+                "Rata",
+                "Vode",
+                "Ljubavi",
+                "Podzemnog sveta"
+            ],
+            "answer": "Podzemnog sveta"
+        },
+
+        "q7": {
+            "question": "Na kom kontinentu se nalazi država Mali?",
+            "answers": [
+                "Afrika",
+                "Južna Amerika",
+                "Azija",
+                "Evropa"
+            ],
+            "answer": "Afrika"
+        },
+
+        "q8": {
+            "question": "Čuveni muzej Ermitaž nalazi se u?",
+            "answers": [
+                "Sankt Peterburgu",
+                "Parizu",
+                "Kanu",
+                "Berlinu"
+            ],
+            "answer": "Sankt Peterburgu"
+        },
+
+        "q9": {
+            "question": "Ksenofobija je strah od?",
+            "answers": [
+                "Pasa",
+                "Krvi",
+                "Stranaca",
+                "Otvorenog prozora"
+            ],
+            "answer": "Stranaca"
+        },
+
+        "q10": {
+            "question": "Šta je talmud?",
+            "answers": [
+                "Jevrejska sveta knjiga",
+                "Provincija u Egiptu",
+                "Oblast Bliskog istoka bogata naftom",
+                "Košarkaški klub iz Tel Aviva"
+            ],
+            "answer": "Jevrejska sveta knjiga"
+        }
+    }
+}
