@@ -20,12 +20,16 @@ var intervalDelay;
 
 //localStorage.clear();
 
-function showRegistration() {
-
+function loadBody() {
 	bodyContainer = document.createElement("div");
 	bodyContainer.setAttribute("class", "container");
 	bodyContainer.setAttribute("id", "bodyContainer");
 	document.body.appendChild(bodyContainer);
+
+	showRegistration();
+}
+
+function showRegistration() {
 
 	registrationForm = document.createElement("div");
 	registrationForm.setAttribute("id", "registration");
@@ -34,7 +38,7 @@ function showRegistration() {
 	document.getElementById("bodyContainer").appendChild(registrationForm);
 
 	registrationFormHTML = '<div class="col-md-3 col-sm-3"></div><div class="col-md-6 col-md-offset-3 col-sm-6">'
-		+ '<h1><i><b>Prijava za kviz opšteg znanja</i></b></h1><hr /><br>'
+		+ '<h1 style="background-color:white;"><i><b>Prijava za kviz opšteg znanja</i></b></h1><hr /><br>'
 		+ '<form action="#" name="regForm" id="regForm"><div class="form-group">'
 		+ '<label><b><i>Korisničko ime: </b><i></label><input type="text" class="form-control" id="name" placeholder="Name" />'
 		+ '<p id="p1"></p></div>'
@@ -69,13 +73,13 @@ function showRegistration() {
 				$("#email").focus();
 				return false;
 			}
-			// else if (emailFORM.length == "") {
-			// 	$("#p2").text("Niste uneli e-mail adresu");
-			// 	$("#email").focus();
-			// 	return false;
-			// }
 			else if (passFORM.length == "") {
 				$("#p3").text("Niste uneli lozinku");
+				$("#Password").focus();
+				return false;
+			}
+			else if(passFORM.length < 6) {
+				$("#p3").text("Lozinka mora biti veća od 5 karaktera");
 				$("#Password").focus();
 				return false;
 			}
@@ -123,7 +127,7 @@ function showRules() {
 	gameRules.setAttribute("class", "container text-center");
 	document.getElementById("bodyContainer").appendChild(gameRules);
 
-	gameRulesHTML = '<div class="row"><div class="col-md-4 col-sm-4"></div><div class="col-md-4 col-sm-4"><br><br><h2>Pravila igre </h2></div><div class="col-md-4 col-sm-4"></div></div>';
+	gameRulesHTML = '<div class="row"><div class="col-md-4 col-sm-4"></div><div class="col-md-4 col-sm-4" style="background-color:white;"><br><br><h2>Pravila igre </h2></div><div class="col-md-4 col-sm-4"></div></div>';
 	gameRulesHTML += '<div class="row">';
 	gameRulesHTML += '<div class="col-md-12 col-sm-12">';
 	gameRulesHTML += '<br><br><p id="gameRules"> Kviz ima 10 pitanja.<br>';
@@ -164,7 +168,7 @@ function startQuiz() {
 	startQuizTimer = document.createElement("div");
 	startQuizTimer.setAttribute("id", "timer");
 	startQuizTimer.setAttribute("class", "container");
-	startQuizTimerHTML = '<div class="row"><div class="col-md-6 col-sm-6" id="currScore"><p>Rezultat: </p><p id="score"></p></div><div class="col-sm-6 col-md-6"><p id="questionTimer"></p>'
+	startQuizTimerHTML = '<div class="row"><div class="col-md-6 col-sm-6" id="currScore"><p>Rezultat: </p><p id="score"></p></div><div class="col-sm-6 col-md-6"><p id="questionTimer">Preostalo vreme: </p>'
 		+ '<p id="countdown"></p></div></div><div class="row"><div class="col-sm-4 col-sm-4"></div><div class="col-sm-4 col-md-4"><p style="text-align:center;" id="questionNumber"></p></div><div class="col-sm-4 col-sm-4"></div>';
 
 	startQuizTimer.innerHTML = startQuizTimerHTML;
@@ -172,26 +176,28 @@ function startQuiz() {
 
 	startQuizQuestions = document.createElement("div");
 	startQuizQuestions.setAttribute("id", "questions");
-	startQuizQuestionsHTML = '<input readonly type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="font-weight: bold; font-size: x-large; text-align: center;" id="ques">'
+	startQuizQuestions.setAttribute("class", "container");
+	startQuizQuestionsHTML = '<div class="row"><div class="col-md-12 col-sm-12"><input readonly type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="font-weight: bold; font-size: x-large; text-align: center;" id="ques">'
 		+ '<input type="button" id="option1" value="" class="btn btn-primary btn-lg btn-block" onclick="checkAnswer(this.id)">'
 		+ '<input type="button" id="option2" value="" class="btn btn-primary btn-lg btn-block" onclick="checkAnswer(this.id)">'
 		+ '<input type="button" id="option3" value="" class="btn btn-primary btn-lg btn-block" onclick="checkAnswer(this.id)">'
 		+ '<input type="button" id="option4" value="" class="btn btn-primary btn-lg btn-block" onclick="checkAnswer(this.id)">'
 		+ '<input type="button" id="skipQuestion" value=" Preskoči" class="btn btn-secondary btn-lg btn-block" onclick="skipQuestion()">'
-		+ '<input type="button" id="skipAll" value="Završi igru" class="btn btn-secondary btn-lg btn-block" onclick="showResult()">';
+		+ '<input type="button" id="skipAll" value="Završi igru" class="btn btn-secondary btn-lg btn-block" onclick="showResult()"></div></div>';
 
 	startQuizQuestions.innerHTML = startQuizQuestionsHTML;
 	document.getElementById("bodyContainer").appendChild(startQuizQuestions);
 
 	startQuizQuestions = document.createElement("div");
 	startQuizQuestions.setAttribute("id", "textQuest");
+	startQuizQuestions.setAttribute("class", "container");
 
-	startQuizQuestionsHTML = '<input readonly type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="font-weight: bold; font-size: x-large; text-align: center;" id="quesText">'
+	startQuizQuestionsHTML = '<div class="row"><div class="col-md-12 col-sm-12"><input readonly type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" style="font-weight: bold; font-size: x-large; text-align: center;" id="quesText">'
 		+ '<input id="textInput" type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" '
 		+ 'name=textInput" maxlength="30">'
 		+ '<input type="button" id="textAns" value="Odgovori" class="btn btn-primary btn-lg btn-block" onclick="checkAnswerText(this.id)">'
 		+ '<input type="button" id="skipInputQuestion" value=" Preskoči" class="btn btn-secondary btn-lg btn-block" onclick="skipQuestion()">'
-		+ '<input type="button" id="skipInputAll" value="Završi igru" class="btn btn-secondary btn-lg btn-block" onclick="showResult()">';
+		+ '<input type="button" id="skipInputAll" value="Završi igru" class="btn btn-secondary btn-lg btn-block" onclick="showResult()"></div></div>';
 
 	startQuizQuestions.innerHTML = startQuizQuestionsHTML;
 	document.getElementById("bodyContainer").appendChild(startQuizQuestions);
@@ -212,11 +218,6 @@ function startQuiz() {
 
 function showQuestion() {
 	usersJSON[usersCounter] = { 'username': usernameFORM, 'score': score };
-
-	updateCountdown();
-	$(document).ready(function () {
-		intervalQuestion = setInterval(updateCountdown, 1000);
-	});
 
 	if (questionCounter > 10) {
 		score = 0;
@@ -239,6 +240,11 @@ function showQuestion() {
 		document.getElementById("questionNumber").innerHTML = questionCounter + ". PITANJE:"
 		document.getElementById("quesText").value = questionsJSON["quiz"]["q" + questionCounter].question;
 
+		$(document).ready(function () {
+			updateCountdown();
+			intervalQuestion = setInterval(updateCountdown, 1000);
+		});
+	
 		++questionCounter;
 	}
 
@@ -273,6 +279,11 @@ function showQuestion() {
 		if (document.getElementById("option3").value == correctAnswer) correctButtonID = "option3";
 		if (document.getElementById("option4").value == correctAnswer) correctButtonID = "option4";
 
+		$(document).ready(function () {
+			updateCountdown();
+			intervalQuestion = setInterval(updateCountdown, 1000);
+		});	
+
 		++questionCounter;
 	}
 }
@@ -280,13 +291,13 @@ function showQuestion() {
 function skipQuestion() {
 	clearInterval(intervalQuestion);
 
-	updateDelay();
 	$(document).ready(function () {
+		updateDelay();
 		intervalDelay = setInterval(updateDelay, 1000);
-	})
+	});
 
 	document.getElementById("textAns").style.backgroundColor = "red";
-	document.getElementById("textInput").value = "Tacan odgovor je: " + correctAnswer;
+	document.getElementById("textInput").value = "Tačan odgovor je: " + correctAnswer;
 	if (correctButtonID == "option1") {
 		document.getElementById("option1").style.backgroundColor = "green";
 		document.getElementById("option2").style.backgroundColor = "red";
@@ -327,10 +338,10 @@ function skipQuestion() {
 function checkAnswer(clicked) {
 	clearInterval(intervalQuestion);
 
-	updateDelay();
 	$(document).ready(function () {
+		updateDelay();
 		intervalDelay = setInterval(updateDelay, 1000);
-	})
+	});
 
 	if (document.getElementById(clicked).value == correctAnswer) {
 		score += 1;
@@ -353,10 +364,10 @@ function checkAnswer(clicked) {
 function checkAnswerText(clicked) {
 	clearInterval(intervalQuestion);
 
-	updateDelay();
 	$(document).ready(function () {
+		updateDelay();
 		intervalDelay = setInterval(updateDelay, 1000);
-	})
+	});
 
 	var answerInput = document.getElementById("textInput").value;
 	answerInput = answerInput.toLowerCase();
@@ -377,10 +388,9 @@ function checkAnswerText(clicked) {
 
 
 function updateCountdown() {
-	document.getElementById("questionTimer").innerHTML = "Preostalo vreme:";
 	document.getElementById("countdown").innerHTML = time + "s";
 	timeDelay = 5;
-	console.log(time);
+	
 	if (time > 0) {
 		time--;
 		document.getElementById("countdown").style.color = "green";
@@ -396,7 +406,6 @@ function updateCountdown() {
 
 function updateDelay() {
 	time = 20;
-	document.getElementById("questionTimer").innerHTML = "Sledeće pitanje kreće za:";
 	document.getElementById("countdown").innerHTML = timeDelay + "s";
 	if (timeDelay > 0) {
 		timeDelay--;
@@ -423,10 +432,11 @@ function showResult() {
 
 	result = document.createElement("div");
 	result.setAttribute("id", "results");
+	result.setAttribute("class", "container");
 
-	resultHTML = '<h1 style="text-align:center"><b><i> Najbolji rezultati </h1></b></i><hr>';
-	resultHTML += '<p id="userEndGame"> Igrač: ' + '<font color="red">'+ usersJSON[usersCounter].username + '</font>' + '<br> Rezultat: ' + '<font color="red">' + usersJSON[usersCounter].score + '</font></p>';
-	resultHTML += '<table class="table table-striped" id="tableResults"><thead><tr><th scope="col">#</th><th scope="col">Korisničko ime</th><th scope="col">Rezultat</th></tr></thead><tbody>';
+	resultHTML = '<div class="row"><div class="col-md-4 col-sm-4"></div><div class="col-md-4 col-sm-4"><h1 style="text-align:center"><b><i> Najbolji rezultati </h1></b></i><hr>';
+	resultHTML += '<p id="userEndGame"> Igrač: ' + '<font color="red">'+ usersJSON[usersCounter].username.toUpperCase() + '</font>' + '<br> Rezultat: ' + '<font color="red">' + usersJSON[usersCounter].score + '</font></p></div>';
+	resultHTML += '<div class="col-md-4 col-sm-4"></div></div><div class="row"><div class="col-sm-12 col-md-12"><table class="table table-striped" id="tableResults"><thead><tr><th scope="col">#</th><th scope="col">Korisničko ime</th><th scope="col">Rezultat</th></tr></thead><tbody>';
 
 	if (index == -1) {
 		usersCounter++;
@@ -441,7 +451,12 @@ function showResult() {
 	}
 
 	usersJSON.sort(function (a, b) {
-		return b.score - a.score;
+		if((b.score - a.score) == 0) {
+			return a.username.toLowerCase() - b.username.toLowerCase(); 
+		}
+		else {
+			return b.score - a.score;
+		}
 	});
 
 	if (usersCounter < 10) {
@@ -457,8 +472,6 @@ function showResult() {
 		localStorage.setItem('users', JSON.stringify(usersJSON));
 	}
 
-	console.log(usersJSON);
-
 	usersCounter = usersJSON.length;
 	index = -1;
 	lastScore = -1;
@@ -470,7 +483,7 @@ function showResult() {
 	}
 
 	resultHTML += '</tbody></table><hr>';
-	resultHTML += '<input type="button" id="nazad" value="Nazad" class="btn btn-secondary btn-lg btn-block" onclick="startOver()">';
+	resultHTML += '<input type="button" id="nazad" value="Nazad" class="btn btn-secondary btn-lg btn-block" onclick="startOver()"></div></div>';
 
 	result.innerHTML = resultHTML;
 	document.getElementById("bodyContainer").appendChild(result);
@@ -479,6 +492,9 @@ function showResult() {
 function startOver() {
 	childNode = document.getElementById("results");
 	document.getElementById("bodyContainer").removeChild(childNode);
+
+	clearInterval(intervalQuestion);
+	clearInterval(intervalDelay);
 
 	usernameFORM = "";
 	nameFORM = "";
