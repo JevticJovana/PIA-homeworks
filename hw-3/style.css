@@ -4,7 +4,6 @@
 }
 
 body {
-	/*display: block;*/
 	z-index: 0;
 }
 
@@ -23,7 +22,6 @@ body::after {
 }
 
 div {
-	/* font-size: 36px; */
 	color: black;
   }
 
@@ -33,14 +31,6 @@ div {
 	left: 0;
 	right: 0;
 }
-
-/* #bodyContainer::after {
-	position: relative;
-	opacity: 0.5;
-	background-repeat: repeat;
-	background-image: url("images/logo.png");
-	/*background-color: rgba(0,0,0,.5);
-}*/
 
 h1 {
     text-align: center;
@@ -54,8 +44,6 @@ h1 {
 }
 
 #rules {
-	/*background-color: white; */
-	/*font-family: 'Bangers', cursive;*/
 	font-family: 'Langar', cursive;
 	position: absolute;
 	top:0;
@@ -77,8 +65,6 @@ h1 {
 
 #questions {
 	background-color: white;
-	
-	/*position: absolute;*/
 	top:0;
 	bottom: 0;
 	left: 0;
@@ -91,12 +77,6 @@ h1 {
 	font-size: 30px;
 	font-weight: bolder;
 	text-align: right;
-	/*text-align: center;*/
-	/* color: green; */
-	/* border:3px; 
-	border-style:solid; 
-	border-color:#FF0000;  */
-	/* padding: 1em; */
 }
 
 #currScore {
@@ -108,26 +88,18 @@ h1 {
 #countdown {
 	font-size: 35px;
 	font-weight: bolder;
-	/*background-color: white;*/
 }
 
 #questionTimer {
 	font-size: 30px;
 	font-weight: bold;
 	text-align: right;
-	/*text-align: center;*/
-	/* color: green; */
-	/* border:3px; 
-	border-style:solid; 
-	border-color:#FF0000;  */
-	/* padding: 1em; */
 }
 
 #questionNumber {
 	font-weight: bold;
 	text-align: center;
 	font-size: xx-large;
-	/* background-color: white; */
 }
 
 #score {
