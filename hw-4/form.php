@@ -1,10 +1,6 @@
 <?php
 
-    $db = new mysqli('localhost',
-    'admin',
-    'adminkida123',
-    'users'
-    );
+    require 'database_include.php';
 
     $user = $_POST['user'];
     $decoded = json_decode($user, true);
@@ -14,6 +10,7 @@
     $isExisting = false;
     $email_Existing = false;
     $username_Existing = false;
+    $isAdmin = false;
     
     $result = $db->query('SELECT * FROM listusers');
 
@@ -34,12 +31,18 @@
 
         if($isExisting) {
             if($row['User_password'] === $decoded['User_password'])
+            {
                 $user_existing = true;
+                if($row['isAdmin'] === "1")
+                    $isAdmin = true;
+            }
         }
         else {
             $user_existing = false;
+            $isAdmin = false;
         }
 
+        $user_existing = array('User_existing' => $user_existing, 'User_admin' =>  $isAdmin);
         echo json_encode($user_existing);
     }
     elseif($decoded['Sign_up'] === true) {
@@ -81,6 +84,7 @@
             $db->query($sql);
 
             $array = array('Email_existing' => $email_Existing, 'Username_existing' => $username_Existing, 'User_exists' => $isExisting);
+
             echo json_encode($array);
         }
     }
