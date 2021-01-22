@@ -1,3 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+	z-index: 0;
+}
+
+body::after {
+	content: "";
+	opacity: 0.3;
+	position: absolute;
+	background-image: url("images/movies.jpg");
+    background-repeat: repeat;
+    background-position: center;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	margin: 0 auto;
+	z-index: -1;
+}
+
+div {
+	color: black;
+  }
+
 #bodyContainer {
 	top:0;
 	bottom: 0;
@@ -18,4 +46,23 @@ h1 {
 
 #wrongUser, #wrongPassword, #wrongUsernameReg, #wrongNameReg, #wrongPassReg, #wrongEmailReg {
 	color: #FF0000;
+}
+
+thead {
+	font-weight: bolder;
+}
+
+.titleTable {
+	font-weight: bolder;
+	font-style: italic;
+	text-transform: uppercase;
+}
+
+#movieListAdmin {
+	background-color: white;
+}
+
+#chosenMovie {
+	background-color: white;
+	font-weight: bold;
 }
