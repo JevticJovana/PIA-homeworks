@@ -66,3 +66,7 @@ thead {
 	background-color: white;
 	font-weight: bold;
 }
+
+#logoutNavbar:hover {
+	background-color: #80808061;
+}
