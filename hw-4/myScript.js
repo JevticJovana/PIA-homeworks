@@ -278,6 +278,11 @@ function showAdminPage() {
 				adminPage.setAttribute("class", "container");
 				document.getElementById("bodyContainer").appendChild(adminPage);
 
+				adminPageHTML = '<nav class="navbar navbar-light bg-light justify-content-between">'
+							+ '<a class="navbar-brand" id="logoutNavbar">Odjava</a></nav>';
+				
+				adminPage.innerHTML = adminPageHTML;
+
 				adminPageHTML = '<div class="row"><div class="col-md-4 col-sm-4"></div><div class="col-md-4 col-sm-4"><h1 style="text-align:center"><b><i> Lista filmova </h1></b></i></div><hr>';
 				adminPageHTML += '<div class="col-md-4 col-sm-4"></div></div><div class="row"><div class="col-sm-12 col-md-12"><table class="table table-striped" id="movieListAdmin"><thead><tr><th scope="col">#</th><th scope="col">Naslov filma</th><th scope="col"></th><th scope="col"></th></tr></thead><tbody>';
 
@@ -293,9 +298,22 @@ function showAdminPage() {
 				adminPageHTML += '<div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="addMovie" class="btn btn-light" value="Dodaj film" onclick="addMovie()" /></div>'
 				adminPageHTML += '<div class="col-md-12 col-sm-12"><div id="chosenMovie"></div></div></div>';
 
-				adminPage.innerHTML = adminPageHTML;
+				adminPage.innerHTML += adminPageHTML;
+
+				$('#logoutNavbar').click(function(){ logoutUser(); return false; });
 			}
 		});
+	});
+}
+
+function logoutUser() {
+
+	$(document).ready(function () {
+		childNode = document.getElementById("adminPage");
+		document.getElementById("bodyContainer").removeChild(childNode);
+	
+		alert("Uspešno ste se odjavili!");
+		welcomePage();
 	});
 }
 
@@ -518,3 +536,4 @@ function addMovie() {
 	});
 
 }
+
