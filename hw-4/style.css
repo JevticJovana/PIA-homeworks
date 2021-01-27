@@ -5,13 +5,23 @@
 
 body {
 	z-index: 0;
+	/* width: 100vw;
+	height: 100vw;
+	position: relative;
+	display: block; */
+	/* height: 100vw;
+	
+	display: flex; */
+	/* background-image: url("images/body.jpg"); */
+	
 }
 
 body::after {
 	content: "";
+	/* height: 100%; */
 	opacity: 0.3;
 	position: absolute;
-	background-image: url("images/movies.jpg");
+	background-image: url("images/body.jpg");
     background-repeat: repeat;
     background-position: center;
 	top: 0;
@@ -67,6 +77,29 @@ thead {
 	font-weight: bold;
 }
 
+#logoutNavbar, #logoutNavbarUser {
+	font-weight: bold;
+	font-style: italic;
+}
 #logoutNavbar:hover {
 	background-color: #80808061;
+	/* font-weight: bold;
+	font-style: italic; */
 }
+
+#logoutNavbarUser:hover {
+	background-color: #80808061;
+	/* font-weight: bold;
+	font-style: italic; */
+}
+
+.imgHome {
+	width: 100%;
+	height: 100%;
+}
+
+/* #homePosters {
+	background-image: url("images/body.jpg");
+	opacity: 0.3;
+	background-repeat: repeat;
+} */
