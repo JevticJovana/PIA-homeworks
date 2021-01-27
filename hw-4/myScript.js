@@ -1,6 +1,8 @@
 signUp = false;
 username = "";
 password = "";
+adminIn = false;
+user_name = "";
 
 
 function createBody() {
@@ -38,8 +40,8 @@ function welcomePage() {
 		+ '<input type="password" class="form-control" id="passwordLog" placeholder="******" />'
 		+ '<p id="wrongPassword"></p></div></div>'
 		+ '<div class="row"><div class="col-md-3 col-sm-3"></div><div class="col-md-6 col-md-offset-3 col-sm-6">'
-		+ '<div class="form-group"><input type="submit" class="btn btn-primary btn-block" id="login" name="login" value="Prijavi se" />'
-		+ '<input type="submit" class="btn btn-primary btn-block" id="register" name="register" value="Nemaš nalog? Registruj se!" onclick="registrationPage();"/>'
+		+ '<div class="form-group"><input type="button" class="btn btn-primary btn-block" id="login" name="login" value="Prijavi se" />'
+		+ '<input type="button" class="btn btn-primary btn-block" id="register" name="register" value="Nemaš nalog? Registruj se!" onclick="registrationPage();"/>'
 		+ '</div></div></div></form></div>';
 
 	loginForm.innerHTML = loginFormHTML;
@@ -71,18 +73,18 @@ function welcomePage() {
 				data = {
 					"User_username": username,
 					"User_password": password,
-					"Sign_up": signUp
 				};
 				dataJSON = JSON.stringify(data);
 				console.log(dataJSON);
 
 				$.ajax({
-					url: 'form.php',
+					url: 'login.php',
 					type: 'post',
 					data: { user: dataJSON },
 					success: function (user_existing) {
 						data = JSON.parse(user_existing);
 						console.log(data);
+						user_name = data['User_name'];
 						if (data['User_existing'] && !(data['User_admin'])) {
 							alert("Uspešno ste se prijavili");
 							$("#usernameLog").val("");
@@ -119,7 +121,15 @@ function welcomePage() {
 							console.log(isAdmin);
 							childNode = document.getElementById("loginForm");
 							document.getElementById("bodyContainer").removeChild(childNode);
+							adminIn = true;
 							showAdminPage();
+							return true;
+						}
+						if (isUser) {
+							console.log(isUser);
+							childNode = document.getElementById("loginForm");
+							document.getElementById("bodyContainer").removeChild(childNode);
+							showUserPage();
 							return true;
 						}
 					}
@@ -162,8 +172,8 @@ function registrationPage() {
 		+ '<div class="form-group"><label><b><i>Lozinka: </b></i></label>'
 		+ '<input type="password" class="form-control" id="passwordReg" placeholder="******" />'
 		+ '<p id="wrongPassReg"></p></div>'
-		+ '<div class="form-group"><input type="submit" class="btn btn-primary btn-block" id="registration" name="registration" value="Registruj se"/></div>'
-		+ '<div class="form-group"><input type="submit" class="btn btn-primary btn-block" id="signin" name ="signin" value="Imaš nalog? Prijavi se!" onclick="welcomePage();" /></div></form></div>';
+		+ '<div class="form-group"><input type="button" class="btn btn-primary btn-block" id="registration" name="registration" value="Registruj se"/></div>'
+		+ '<div class="form-group"><input type="button" class="btn btn-primary btn-block" id="signin" name ="signin" value="Imaš nalog? Prijavi se!" onclick="welcomePage();" /></div></form></div>';
 
 	registrationForm.innerHTML = registrationFormHTML;
 
@@ -213,18 +223,19 @@ function registrationPage() {
 					"User_name": firstName,
 					"User_lastname": lastName,
 					"User_password": password,
-					"Sign_up": signUp
 				};
 				dataJSON = JSON.stringify(data);
 				console.log(dataJSON);
+				data = "";
 				$.ajax({
-					url: 'form.php',
+					url: 'registration.php',
 					type: 'post',
 					data: { user: dataJSON },
 					success: function (array) {
 						console.log("ovde sam");
 						data = JSON.parse(array);
 						console.log(data);
+						user_name = data['User_name'];
 						if (data['User_exists']) {
 							if (data['Email_existing']) {
 								$("#wrongEmailReg").text("Uneta e-mail adresa već postoji");
@@ -237,7 +248,7 @@ function registrationPage() {
 								$("#usernameReg").focus();
 							}
 							alert("Registracija neuspešna");
-
+							isUser = false;
 						}
 						else {
 							alert("Registracija uspešna");
@@ -246,17 +257,75 @@ function registrationPage() {
 							$("#nameReg").val("");
 							$("#lastnameReg").val("");
 							$("#passwordReg").val("");
+							isUser = true;
 						}
+					},
+					complete: function () {
+						console.log('kraj');
+						console.log(isUser);
+						if (isUser) {
+							console.log(isUser);
+							childNode = document.getElementById("registrationForm");
+							document.getElementById("bodyContainer").removeChild(childNode);
+							showUserPage();
+							return true;
+						}
+						$("#regForm").submit(function (event) {
+							event.preventDefault()
+						});
 					}
 				});
-				$("#regForm").submit(function (event) {
-					event.preventDefault()
-				});
-
 			}
 		});
 	});
 }
+
+function showUserPage() {
+	userPage = document.createElement("div");
+	userPage.setAttribute("id", "userPage");
+	userPage.setAttribute("style", "margin:auto;");
+	userPage.setAttribute("class", "container");
+	document.getElementById("bodyContainer").appendChild(userPage);
+
+	userPageHTML = '<nav class="navbar fixed-top navbar-light bg-light justify-content-between">'
+		+ '<a class="navbar-brand" id="logoutNavbarUser">Dobrodošli, ' + user_name + '<br>'
+		+ 'Odjava</a>'
+		// + '<a class="navbar-brand" style="font-weight: bold; font-style: italic; text-align:center;">Dobrodošli, ' + user_name + '</a>'
+		+ '<form class="form-inline"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove koje želite" aria-label="Search" id="searchBar">'
+		+ '<input type="button" class="btn btn-outline-success my-2 my-sm-0" id="searchButton" value="Pretražite"></form></nav>';
+
+	userPage.innerHTML = userPageHTML;
+
+	// userPageHTML = '<div class="row"><div class="col-md-2 col-sm-2"></div>'
+	// 			+ '<div class="col-md-8 col-sm-8"><img id="coverPic" class="rounded" src="images/quote.jpg" alt="naslovna"></div></div>';
+	// userPage.innerHTML += userPageHTML;
+
+	userPageHTML = '<br><br><br><br><h2 style="text-align:center"><i>Najpopularniji naslovi</i></h2><hr><div class="container" id="homePosters"><div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex1.jpg" alt="naslovna"></div>'
+				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex2.jpg" alt="naslovna"></div>'
+				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex3.jpg" alt="naslovna"></div></div>'
+				+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex4png.png" alt="naslovna"></div>'
+				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex5png.png" alt="naslovna"></div>'
+				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex6.jpg" alt="naslovna"></div></div>'
+				+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex7.jpg" alt="naslovna"></div>'
+				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex8.jpg" alt="naslovna"></div>'
+				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex9.jpg" alt="naslovna"></div></div>'
+				+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex10.jpg" alt="naslovna"></div>'
+				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex11.jpg" alt="naslovna"></div>'
+				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex12.jpg" alt="naslovna"></div></div>'
+				+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex13.jpg" alt="naslovna"></div>'
+				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex14.jpg" alt="naslovna"></div>'
+				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex15.jpg" alt="naslovna"></div></div></div>';
+	userPage.innerHTML += userPageHTML;
+
+
+	$('#logoutNavbarUser').click(function () { logoutUser(); return false; });
+	$('#searchButton').click(function() {searchResult(); return false});
+}
+
+function searchResult() {
+	document.getElementById("userPage").innerHTML = "radim; ovo je ukucano: " + $("#searchBar").val();
+}
+
 
 data = "";
 function showAdminPage() {
@@ -278,9 +347,9 @@ function showAdminPage() {
 				adminPage.setAttribute("class", "container");
 				document.getElementById("bodyContainer").appendChild(adminPage);
 
-				adminPageHTML = '<nav class="navbar navbar-light bg-light justify-content-between">'
-							+ '<a class="navbar-brand" id="logoutNavbar">Odjava</a></nav>';
-				
+				adminPageHTML = '<nav class="navbar fixed-top navbar-light bg-light justify-content-between">'
+					+ '<a class="navbar-brand" id="logoutNavbar">Odjava</a></nav>';
+
 				adminPage.innerHTML = adminPageHTML;
 
 				adminPageHTML = '<div class="row"><div class="col-md-4 col-sm-4"></div><div class="col-md-4 col-sm-4"><h1 style="text-align:center"><b><i> Lista filmova </h1></b></i></div><hr>';
@@ -290,7 +359,7 @@ function showAdminPage() {
 					adminPageHTML += '<tr><th scope="row" id="row_' + (i + 1) + '"></th><td class="titleTable">'
 						+ '<input type="button" style="font-weight:bold;" class="btn btn-light" value="'
 						+ data[i]['Movie_title'] + '"' + 'onclick="showMovie(' + (i + 1) + ')"' + '</></td><td class="linkUpdateTable">'
-						+ '<input type="button" style="font-weight:bold; color:green;" class="btn btn-light" value="Ažuriraj podatke o filmu" onclick="updateTable(' + data[i]['Movie_id'] + "," + i +')"/></td>' + '<td class="linkDeleteTable">'
+						+ '<input type="button" style="font-weight:bold; color:green;" class="btn btn-light" value="Ažuriraj podatke o filmu" onclick="updateTable(' + data[i]['Movie_id'] + "," + i + ')"/></td>' + '<td class="linkDeleteTable">'
 						+ '<input type="button" style="font-weight:bold; color:red;" class="btn btn-light" value="Obriši film iz baze" onclick="deleteTable(' + data[i]['Movie_id'] + ')"/></td></tr>';
 				}
 
@@ -300,7 +369,7 @@ function showAdminPage() {
 
 				adminPage.innerHTML += adminPageHTML;
 
-				$('#logoutNavbar').click(function(){ logoutUser(); return false; });
+				$('#logoutNavbar').click(function () { logoutUser(); return false; });
 			}
 		});
 	});
@@ -309,11 +378,19 @@ function showAdminPage() {
 function logoutUser() {
 
 	$(document).ready(function () {
-		childNode = document.getElementById("adminPage");
-		document.getElementById("bodyContainer").removeChild(childNode);
-	
+		if(adminIn) {
+			
+			childNode = document.getElementById("adminPage");
+			document.getElementById("bodyContainer").removeChild(childNode);
+		}
+		else {
+			childNode = document.getElementById("userPage");
+			document.getElementById("bodyContainer").removeChild(childNode);
+		}
+
 		alert("Uspešno ste se odjavili!");
 		welcomePage();
+
 	});
 }
 
@@ -365,15 +442,15 @@ function updateTable(id, i) {
 			movieData = {
 				"Title": $("#title").val(),
 				"Description": $("#description").val(),
-				"Genre" : $("#genre").val(),
-				"Screenwriter" : $("#screenwriter").val(),
-				"Director" : $("#director").val(),
-				"Studio" : $("#studio").val(),
-				"Actors" : $("#actors").val(),
-				"Year" : $("#year").val(),
-				"Length" : $("#length").val(),
-				"Location" : $("#location").val(),
-				"Id" : id
+				"Genre": $("#genre").val(),
+				"Screenwriter": $("#screenwriter").val(),
+				"Director": $("#director").val(),
+				"Studio": $("#studio").val(),
+				"Actors": $("#actors").val(),
+				"Year": $("#year").val(),
+				"Length": $("#length").val(),
+				"Location": $("#location").val(),
+				"Id": id
 			};
 
 			dataJSON = JSON.stringify(movieData);
@@ -386,8 +463,8 @@ function updateTable(id, i) {
 				success: function (movie_updated) {
 					movieUpdated = JSON.parse(movie_updated);
 				},
-				complete: function() {
-					if(movieUpdated) {
+				complete: function () {
+					if (movieUpdated) {
 						alert("Uspešno ste ažurirali podatke filma");
 						document.getElementById("chosenMovie").innerHTML = "";
 						childNode = document.getElementById("adminPage");
@@ -409,12 +486,12 @@ function deleteTable(id) {
 
 	console.log("deleteMovie");
 
-	$(document).ready(function (){
+	$(document).ready(function () {
 		$("#movieChange").submit(function (event) {
 			event.preventDefault()
 		});
 
-		movieData = {"Id" : id};
+		movieData = { "Id": id };
 		dataJSON = JSON.stringify(movieData);
 		console.log(movieData);
 		$.ajax({
@@ -425,8 +502,8 @@ function deleteTable(id) {
 			success: function (movie_deleted) {
 				movieData = JSON.parse(movie_deleted);
 			},
-			complete: function() {
-				if(movieData) {
+			complete: function () {
+				if (movieData) {
 					alert("Uspešno ste izbrisali film");
 					document.getElementById("chosenMovie").innerHTML = "";
 					childNode = document.getElementById("adminPage");
@@ -443,7 +520,7 @@ function deleteTable(id) {
 function showMovie(id) {
 	console.log(data[id - 1]);
 	console.log("showMovie");
-	$(document).ready(function (){
+	$(document).ready(function () {
 		document.getElementById("addMovie").disabled = false;
 		$("#chosenMovie").text("");
 		text = "<i style='color:green;'>Naslov filma: </i>" + data[id - 1]['Movie_title'] +
@@ -495,14 +572,14 @@ function addMovie() {
 			movieData = {
 				"Title": $("#titleAdd").val(),
 				"Description": $("#descriptionAdd").val(),
-				"Genre" : $("#genreAdd").val(),
-				"Screenwriter" : $("#screenwriterAdd").val(),
-				"Director" : $("#directorAdd").val(),
-				"Studio" : $("#studioAdd").val(),
-				"Actors" : $("#actorsAdd").val(),
-				"Year" : $("#yearAdd").val(),
-				"Length" : $("#lengthAdd").val(),
-				"Location" : $("#locationAdd").val(),
+				"Genre": $("#genreAdd").val(),
+				"Screenwriter": $("#screenwriterAdd").val(),
+				"Director": $("#directorAdd").val(),
+				"Studio": $("#studioAdd").val(),
+				"Actors": $("#actorsAdd").val(),
+				"Year": $("#yearAdd").val(),
+				"Length": $("#lengthAdd").val(),
+				"Location": $("#locationAdd").val(),
 			};
 
 			dataJSON = JSON.stringify(movieData);
@@ -515,10 +592,10 @@ function addMovie() {
 				success: function (movie_added) {
 					movieAdded = JSON.parse(movie_added);
 				},
-				complete: function() {
+				complete: function () {
 					document.getElementById("addMovie").disabled = false;
 					console.log(movieAdded);
-					if(movieAdded) {
+					if (movieAdded) {
 						alert("Uspešno ste dodali novi film");
 						document.getElementById("chosenMovie").innerHTML = "";
 						childNode = document.getElementById("adminPage");
@@ -536,4 +613,3 @@ function addMovie() {
 	});
 
 }
-
