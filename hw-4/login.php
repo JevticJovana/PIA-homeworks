@@ -15,11 +15,11 @@
     $result = $db->query('SELECT * FROM listusers');
     
     foreach($result as $row) {
-        $usernameData = $row['User_username'];
-        $emailData = $row['User_email'];
+        $usernameData = strtolower($row['User_username']);
+        $emailData = strtolower($row['User_email']);
         $passwordData = $row['User_password'];
     
-        if($usernameData === $decoded['User_username'] || $emailData === $decoded['User_username']) {
+        if($usernameData === strtolower($decoded['User_username']) || $emailData === strtolower($decoded['User_username'])) {
             $isExisting = true;
             $row_found = $row;
             break;
