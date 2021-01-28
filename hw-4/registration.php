@@ -11,25 +11,25 @@
     $email_Existing = false;
     $username_Existing = false;
     $isAdmin = false;
+    $fname = "";
 
     $result = $db->query('SELECT * FROM listusers');
 
-    $isExisting = false;
     foreach($result as $row) {
-        $usernameData = $row['User_username'];
-        $emailData = $row['User_email'];
+        $usernameData = strtolower($row['User_username']);
+        $emailData = strtolower($row['User_email']);
 
-        if($usernameData === $decoded['User_username']) {
+        if($usernameData === strtolower($decoded['User_username'])) {
             $username_Existing = true;
             $isExisting = true;
             $row_found = $row;
 
-            if($emailData === $decoded['User_email']) {
+            if($emailData === strtolower($decoded['User_email'])) {
                 $email_Existing = true;
                 break;
             }
         } 
-        if($emailData === $decoded['User_email']) {
+        if($emailData === strtolower($decoded['User_email'])) {
             $email_Existing = true;
             $isExisting = true;
             $row_found = $row;
