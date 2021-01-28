@@ -127,6 +127,7 @@ function welcomePage() {
 						}
 						if (isUser) {
 							console.log(isUser);
+							adminIn = false;
 							childNode = document.getElementById("loginForm");
 							document.getElementById("bodyContainer").removeChild(childNode);
 							showUserPage();
@@ -226,13 +227,14 @@ function registrationPage() {
 				};
 				dataJSON = JSON.stringify(data);
 				console.log(dataJSON);
-				data = "";
+
 				$.ajax({
 					url: 'registration.php',
 					type: 'post',
 					data: { user: dataJSON },
 					success: function (array) {
 						console.log("ovde sam");
+						console.log(array);
 						data = JSON.parse(array);
 						console.log(data);
 						user_name = data['User_name'];
@@ -280,52 +282,219 @@ function registrationPage() {
 	});
 }
 
+//doubleSearch = false;
+movieSearch = "";
+movieSearchResult = false;
+moviePage = false;
+mainPage = false;
+
 function showUserPage() {
+
+	signUp = false;
+	mainPage = true;
+
+	if(moviePage) {
+		console.log("evo me");
+		moviePage = false;
+		childNode = document.getElementById("moviePageShow");
+		document.getElementById("bodyContainer").removeChild(childNode);
+	}
+	else if(movieSearchResult) {
+	 	childNode = document.getElementById("movieSearch");
+	 	document.getElementById("bodyContainer").removeChild(childNode);
+		movieSearchResult = false;
+	}
+
 	userPage = document.createElement("div");
 	userPage.setAttribute("id", "userPage");
 	userPage.setAttribute("style", "margin:auto;");
 	userPage.setAttribute("class", "container");
 	document.getElementById("bodyContainer").appendChild(userPage);
 
+	//doubleSearch = false;
+
 	userPageHTML = '<nav class="navbar fixed-top navbar-light bg-light justify-content-between">'
-		+ '<a class="navbar-brand" id="logoutNavbarUser">Dobrodošli, ' + user_name + '<br>'
-		+ 'Odjava</a>'
+		+ '<span class="navbar-text" style="font-style=italic;font-weight:bolder;color:black;"> Dobrodošli, ' + user_name + '</span>'
 		// + '<a class="navbar-brand" style="font-weight: bold; font-style: italic; text-align:center;">Dobrodošli, ' + user_name + '</a>'
-		+ '<form class="form-inline"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove koje želite" aria-label="Search" id="searchBar">'
-		+ '<input type="button" class="btn btn-outline-success my-2 my-sm-0" id="searchButton" value="Pretražite"></form></nav>';
+		+ '<form class="form-inline"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove" aria-label="Search" id="searchBar">'
+		+ '<input type="button" class="btn btn-outline-success my-2 my-sm-0" id="searchButton" value="Pretražite"></form>'
+		+ '<a class="navbar-brand" id="logoutNavbarUser">Odjava</a></nav>';
 
 	userPage.innerHTML = userPageHTML;
 
-	// userPageHTML = '<div class="row"><div class="col-md-2 col-sm-2"></div>'
-	// 			+ '<div class="col-md-8 col-sm-8"><img id="coverPic" class="rounded" src="images/quote.jpg" alt="naslovna"></div></div>';
-	// userPage.innerHTML += userPageHTML;
-
 	userPageHTML = '<br><br><br><br><h2 style="text-align:center"><i>Najpopularniji naslovi</i></h2><hr><div class="container" id="homePosters"><div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex1.jpg" alt="naslovna"></div>'
-				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex2.jpg" alt="naslovna"></div>'
-				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex3.jpg" alt="naslovna"></div></div>'
-				+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex4png.png" alt="naslovna"></div>'
-				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex5png.png" alt="naslovna"></div>'
-				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex6.jpg" alt="naslovna"></div></div>'
-				+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex7.jpg" alt="naslovna"></div>'
-				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex8.jpg" alt="naslovna"></div>'
-				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex9.jpg" alt="naslovna"></div></div>'
-				+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex10.jpg" alt="naslovna"></div>'
-				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex11.jpg" alt="naslovna"></div>'
-				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex12.jpg" alt="naslovna"></div></div>'
-				+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex13.jpg" alt="naslovna"></div>'
-				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex14.jpg" alt="naslovna"></div>'
-				+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex15.jpg" alt="naslovna"></div></div></div>';
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex2.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex3.jpg" alt="naslovna"></div></div>'
+		+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex4png.png" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex5png.png" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex6.jpg" alt="naslovna"></div></div>'
+		+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex7.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex8.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex9.jpg" alt="naslovna"></div></div>'
+		+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex10.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex11.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex12.jpg" alt="naslovna"></div></div>'
+		+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex13.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex14.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex15.jpg" alt="naslovna"></div></div></div>'
+		+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex16.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex17.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex18.jpg" alt="naslovna"></div></div></div>'
+		+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex19.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex20.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex21.jpg" alt="naslovna"></div></div></div>'
+		+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex22.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex23.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex24.jpg" alt="naslovna"></div></div></div>'
+		+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex25.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex26.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex27.jpg" alt="naslovna"></div></div></div>'
+		+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex28.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex29.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex30.jpg" alt="naslovna"></div></div></div>'
+		+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex31.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex32.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex33.jpg" alt="naslovna"></div></div></div>'
+		+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex34.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex35.jpg" alt="naslovna"></div>'
+		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex36.jpg" alt="naslovna"></div></div></div>';
 	userPage.innerHTML += userPageHTML;
 
 
 	$('#logoutNavbarUser').click(function () { logoutUser(); return false; });
-	$('#searchButton').click(function() {searchResult(); return false});
+	$('#searchButton').click(function () { 
+		searchResult(); 
+		return false 
+	});
 }
 
 function searchResult() {
-	document.getElementById("userPage").innerHTML = "radim; ovo je ukucano: " + $("#searchBar").val();
+
+	movieSearch = $("#searchBar").val();
+	movieSearchResult = true;
+
+	if(moviePage) {
+		console.log("evo me");
+		moviePage = false;
+		childNode = document.getElementById("moviePageShow");
+		document.getElementById("bodyContainer").removeChild(childNode);
+	}
+	else if (mainPage) {
+	 	childNode = document.getElementById("userPage");
+	 	document.getElementById("bodyContainer").removeChild(childNode);
+	 	mainPage = false;
+	}
+	else {
+	 	childNode = document.getElementById("movieSearch");
+	 	document.getElementById("bodyContainer").removeChild(childNode);
+	}
+
+	movieSearchPage = document.createElement("div");
+	movieSearchPage.setAttribute("id", "movieSearch");
+	movieSearchPage.setAttribute("style", "margin:auto;");
+	movieSearchPage.setAttribute("class", "container");
+	document.getElementById("bodyContainer").appendChild(movieSearchPage);
+
+	movieSearchPageHTML = '<nav class="navbar fixed-top navbar-light bg-light justify-content-between">'
+		+ '<span class="navbar-text" style="font-style=italic;font-weight:bolder;color:black;"> Dobrodošli, ' + user_name + '</span>'
+		// + '<a class="navbar-brand" style="font-weight: bold; font-style: italic; text-align:center;">Dobrodošli, ' + user_name + '</a>'
+		+ '<form class="form-inline"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove" aria-label="Search" id="searchBar">'
+		+ '<input type="button" class="btn btn-outline-success my-2 my-sm-0" id="searchButton" value="Pretražite"></form>'
+		+ '<a class="navbar-brand" id="logoutNavbarSearch">Odjava</a></nav>';
+
+	movieSearchPage.innerHTML = movieSearchPageHTML;
+
+	movieSearch = { "Search": movieSearch };
+	dataJSON = JSON.stringify(movieSearch);
+	console.log(dataJSON);
+
+	$(document).ready(function () {
+		$.ajax({
+			url: 'search.php',
+			type: 'post',
+			data: { search: dataJSON },
+			success: function (movie_results) {
+				movieSearch = JSON.parse(movie_results);
+				console.log(movieSearch);
+			},
+			complete: function () {
+				movieSearchPageHTML = '<br><br><br><div class="row"><div class="col-md-4 col-sm-4"></div><div class="col-md-4 col-sm-4"><h1 style="text-align:center"><b><i> Rezultat pretrage </h1></b></i></div><hr>';
+				movieSearchPageHTML += '<div class="col-md-4 col-sm-4"></div></div><div class="row"><div class="col-sm-12 col-md-12"><table class="table table-striped" id="movieListSearch"><thead><tr><th scope="col">#</th><th scope="col">Naslov filma</th><th scope="col">Opis filma</th><th scope="col">Godina</th></tr></thead><tbody>';
+
+				if (movieSearch.length != 0) {
+					for (i = 0; i < movieSearch.length; i++) {
+						movieSearchPageHTML += '<tr><th scope="row"></th><td class="titleTable">'
+							+ '<input type="button" style="font-weight:bold;" class="btn btn-light" value="'
+							+ movieSearch[i]['Movie_title'] + '"' + 'onclick="showMoviePage(' + movieSearch[i]['Movie_id'] + ', ' + i + ')"' + '</></td>'
+							+ '<td class="descriptionTable">' + movieSearch[i]['Movie_description'] + '</td>'
+							+ '<td class="yearTable">' + movieSearch[i]['Movie_year'] + '</td>';
+					}
+
+				}
+				movieSearchPageHTML += '</tbody></table><hr></div></div>';
+				movieSearchPageHTML += '<div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="goBack" class="btn btn-light" value="Nazad" /></div>'
+				movieSearchPageHTML += '<div class="col-md-12 col-sm-12"><div id="chosenMovie"></div></div></div>';
+
+				movieSearchPage.innerHTML += movieSearchPageHTML;
+
+				$('#logoutNavbarSearch').click(function () { logoutUser(); return false; });
+				$('#searchButton').click(function () { ;
+					searchResult(); 
+					return false 
+				});
+				$('#goBack').click(function () { 
+					showUserPage(); 
+					return false 
+				});
+			}
+		});
+	});
 }
 
+//goBack = false;
+
+function showMoviePage(id, indexVal) {
+	moviePage = true;
+	//doubleSearch = false;
+	//razmisli da li zelis da dugme 'nazad' vraca na homepage ili search page
+
+	if (movieSearchPage) {
+		movieSearchResult = false;
+		childNode = document.getElementById("movieSearch");
+		document.getElementById("bodyContainer").removeChild(childNode);
+	}
+
+	movieShow = document.createElement("div");
+	movieShow.setAttribute("id", "moviePageShow");
+	movieShow.setAttribute("style", "margin:auto;");
+	movieShow.setAttribute("class", "container");
+	document.getElementById("bodyContainer").appendChild(movieShow);
+
+	movieShowHTML = '<nav class="navbar fixed-top navbar-light bg-light justify-content-between">'
+		+ '<span class="navbar-text" style="font-style=italic;font-weight:bolder;color:black;"> Dobrodošli, ' + user_name + '</span>'
+		// + '<a class="navbar-brand" style="font-weight: bold; font-style: italic; text-align:center;">Dobrodošli, ' + user_name + '</a>'
+		+ '<form class="form-inline"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove" aria-label="Search" id="searchBar">'
+		+ '<input type="button" class="btn btn-outline-success my-2 my-sm-0" id="searchButtonMoviePage" value="Pretražite"></form>'
+		+ '<a class="navbar-brand" id="logoutNavbarMoviePage">Odjava</a></nav>';
+
+	movieShow.innerHTML = movieShowHTML;
+
+	movieShowHTML = '<br><br><br><div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="goBack" class="btn btn-light" value="Nazad" /></div>'
+	movieShowHTML += '<div class="col-md-12 col-sm-12"><div id="chosenMovie"></div></div></div>';
+
+	movieShow.innerHTML += movieShowHTML;
+
+	$('#logoutNavbarMoviePage').click(function () { logoutUser(); return false; });
+	$('#searchButtonMoviePage').click(function () { 
+		searchResult(); 
+		return false 
+	});
+	$('#goBack').click(function () {
+		showUserPage(); 
+		return false 
+	});
+
+}
 
 data = "";
 function showAdminPage() {
@@ -348,7 +517,7 @@ function showAdminPage() {
 				document.getElementById("bodyContainer").appendChild(adminPage);
 
 				adminPageHTML = '<nav class="navbar fixed-top navbar-light bg-light justify-content-between">'
-					+ '<a class="navbar-brand" id="logoutNavbar">Odjava</a></nav>';
+					+ '<a class="navbar-brand" id="logoutNavbar">Odjava</a></nav><br><br><br>';
 
 				adminPage.innerHTML = adminPageHTML;
 
@@ -378,14 +547,27 @@ function showAdminPage() {
 function logoutUser() {
 
 	$(document).ready(function () {
-		if(adminIn) {
-			
+		if (adminIn) {
+			console.log(adminIn);
 			childNode = document.getElementById("adminPage");
 			document.getElementById("bodyContainer").removeChild(childNode);
 		}
 		else {
-			childNode = document.getElementById("userPage");
-			document.getElementById("bodyContainer").removeChild(childNode);
+			if (movieSearchResult) {
+				childNode = document.getElementById("movieSearch");
+				document.getElementById("bodyContainer").removeChild(childNode);
+				movieSearchResult = false;
+			}
+			else if (moviePage) {
+				childNode = document.getElementById("moviePageShow");
+				document.getElementById("bodyContainer").removeChild(childNode);
+				moviePage = false;
+			}
+			else if(mainPage) {
+				childNode = document.getElementById("userPage");
+				document.getElementById("bodyContainer").removeChild(childNode);
+				mainPage = false;
+			}
 		}
 
 		alert("Uspešno ste se odjavili!");
@@ -613,3 +795,4 @@ function addMovie() {
 	});
 
 }
+
