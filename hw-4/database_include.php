@@ -13,4 +13,6 @@
         echo "Ne može se povezati sa bazom: " .$db -> connect_error;
         exit();
     }
+
+    $db -> set_charset('utf8');
 ?>
