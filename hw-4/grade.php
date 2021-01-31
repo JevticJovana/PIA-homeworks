@@ -1,5 +1,6 @@
 <?php
     require 'database_include.php';
+    header('Content-Type: text/html; charset=utf-8');
 
     $user = $_POST['grade'];
     $decoded = json_decode($user, true);
