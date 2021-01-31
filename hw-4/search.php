@@ -1,11 +1,11 @@
 <?php
     require 'database_include.php';
+    header('Content-Type: text/html; charset=utf-8');
 
     $user = $_POST['search'];
     $decoded = json_decode($user, true);
 
     $search = $decoded['Search'];
-    // $search = 's';
     $result = $db->query("SELECT * FROM listmovies WHERE Movie_title LIKE '%$search%'");
     $movie_results = [];
     $counter = 0;
@@ -22,8 +22,6 @@
             'Movie_studio' => $row['Movie_studio'], 'Movie_actors' => $row['Movie_actors'],
             'Movie_year' => $row['Movie_year'], 'Movie_length' => $row['Movie_length'],
             'Movie_id' => $row['Movie_id'], 'Movie_poster' => $row['Movie_poster'], 'Movie_grade' => $row['Movie_grade'], 'Grade_counter' => $row['Grade_counter']);
-
-            // echo $movie_results[$counter]['Movie_title'];
             $counter += 1;
        }
     }
