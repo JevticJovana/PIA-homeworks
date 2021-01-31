@@ -507,7 +507,7 @@ function showMoviePage(indexVal) {
 		document.getElementById("currGrade").innerText = "Budite prvi koji će ovaj film oceniti";
 	}
 	else {
-		document.getElementById("currGrade").innerText = "Ocena filma: " + (movie['Movie_grade'] / movie['Grade_counter']).toPrecision(3);
+		document.getElementById("currGrade").innerText = "Ocena filma: " + (movie['Movie_grade'] / movie['Grade_counter']).toPrecision(3) + " (na osnovu " + movie['Grade_counter'] + " glasa/ova)";
 	}
 
 	movieShowHTML = '<br><div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="goBack" class="btn btn-secondary" value="Nazad" /></div>'
