@@ -32,7 +32,7 @@ function welcomePage() {
 	loginFormHTML = '<div class="row">'
 		+ '<div class="col-md-3 col-sm-3"></div><div class="col-md-6 col-md-offset-3 col-sm-6">'
 		+ '<h1 style="text-align:center;"><i><b>~Prijava za pristup najvećoj bazi filmova~</i></b></h1><hr /><br>'
-		+ '<form action="" method="POST" name="logForm" id="logForm"><div class="form-group">'
+		+ '<form action="" method="POST" name="logForm" id="logForm" accept-charset="utf-8"><div class="form-group">'
 		+ '<label><b><i>Korisničko ime ili e-mail: </b><i></label><input type="text" class="form-control" '
 		+ 'id="usernameLog" name="usernameLog" placeholder="Name"/>'
 		+ '<p id="wrongUser" ></p></div>'
@@ -156,7 +156,7 @@ function registrationPage() {
 	registrationFormHTML = '<div class="row">'
 		+ '<div class="col-md-3 col-sm-3"></div><div class="col-md-6 col-md-offset-3 col-sm-6">'
 		+ '<h1 style="text-align:center;"><i><b>~Registracija za pristup najvećoj bazi filmova~</i></b></h1><hr /><br>'
-		+ '<form action="" method="POST" name="regForm" id="regForm"><div class="form-group">'
+		+ '<form action="" method="POST" name="regForm" id="regForm" accept-charset="utf-8"><div class="form-group">'
 		+ '<div class="form-group"><label><b><i>Ime: </b><i></label>'
 		+ '<input type="text" class="form-control" id="nameReg" placeholder="Name"/><p id="p1"></p></div>'
 		+ '<div class="form-group"><label><b><i>Prezime: </b><i></label>'
@@ -200,8 +200,8 @@ function registrationPage() {
 				$("#lastnameReg").focus();
 				return false
 			}
-			else if (username.length == "") {
-				$("#wrongUsernameReg").text("Niste uneli korisničko ime");
+			else if (username.length == "" || username.length < 6) {
+				$("#wrongUsernameReg").text("Korisničko ime mora biti veće od 5 karaktera");
 				$("#usernameReg").focus();
 				return false;
 			}
@@ -235,12 +235,10 @@ function registrationPage() {
 						if (data['User_exists']) {
 							if (data['Email_existing']) {
 								$("#wrongEmailReg").text("Uneta e-mail adresa već postoji");
-								//$("#emailReg").val("");
 								$("#emailReg").focus();
 							}
 							if (data['Username_existing']) {
 								$("#wrongUsernameReg").text("Korisničko ime već postoji");
-								//$("#usernameReg").val("");
 								$("#usernameReg").focus();
 							}
 							alert("Registracija neuspešna");
@@ -276,7 +274,6 @@ function registrationPage() {
 	});
 }
 
-//doubleSearch = false;
 movieSearch = "";
 movieSearchResult = false;
 moviePage = false;
@@ -304,18 +301,15 @@ function showUserPage() {
 	userPage.setAttribute("class", "container");
 	document.getElementById("bodyContainer").appendChild(userPage);
 
-	//doubleSearch = false;
-
 	userPageHTML = '<nav class="navbar fixed-top navbar-light bg-light justify-content-between">'
 		+ '<span class="navbar-text" style="font-style:italic;font-weight:bolder;color:black;"> Dobrodošli, ' + user_name + '</span>'
-		// + '<a class="navbar-brand" style="font-weight: bold; font-style: italic; text-align:center;">Dobrodošli, ' + user_name + '</a>'
-		+ '<form class="form-inline"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove" aria-label="Search" id="searchBar">'
+		+ '<form class="form-inline" accept-charset="utf-8"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove" aria-label="Search" id="searchBar">'
 		+ '<input type="button" class="btn btn-outline-success my-2 my-sm-0" id="searchButton" value="Pretražite"></form>'
 		+ '<button class="btn btn-link" id="logoutNavbarUser">Odjava</button></nav>';
 
 	userPage.innerHTML = userPageHTML;
 
-	userPageHTML = '<br><br><br><br><h2 style="text-align:center"><i>Najpopularniji naslovi</i></h2><hr><div class="container" id="homePosters"><div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex1.jpg" alt="naslovna"></div>'
+	userPageHTML = '<br><br><br><br><h2 class="title" style="text-align:center"><i>Najpopularniji naslovi</i></h2><hr><div class="container" id="homePosters"><div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex1.jpg" alt="naslovna"></div>'
 		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex2.jpg" alt="naslovna"></div>'
 		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex3.jpg" alt="naslovna"></div></div>'
 		+ '<div class="row"><div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex4png.png" alt="naslovna"></div>'
@@ -353,6 +347,9 @@ function showUserPage() {
 		+ '<div class="col-md-4 col-sm-4"><img class="rounded imgHome" src="images/ex36.jpg" alt="naslovna"></div></div></div>';
 	userPage.innerHTML += userPageHTML;
 
+	$(document).on("keydown", "form", function (event) {
+		return event.key != "Enter";
+	});
 
 	$('#logoutNavbarUser').click(function () { logoutUser(); });
 	$('#searchButton').click(function () {
@@ -389,8 +386,7 @@ function searchResult() {
 
 	movieSearchPageHTML = '<nav class="navbar fixed-top navbar-light bg-light justify-content-between">'
 		+ '<span class="navbar-text" style="font-style:italic;font-weight:bolder;color:black;"> Dobrodošli, ' + user_name + '</span>'
-		// + '<a class="navbar-brand" style="font-weight: bold; font-style: italic; text-align:center;">Dobrodošli, ' + user_name + '</a>'
-		+ '<form class="form-inline"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove" aria-label="Search" id="searchBar">'
+		+ '<form class="form-inline" accept-charset="utf-8"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove" aria-label="Search" id="searchBar">'
 		+ '<input type="button" class="btn btn-outline-success my-2 my-sm-0" id="searchButton" value="Pretražite"></form>'
 		+ '<button class="btn btn-link" id="logoutNavbarSearch">Odjava</button></nav>';
 
@@ -408,7 +404,7 @@ function searchResult() {
 				movieSearch = JSON.parse(movie_results);
 			},
 			complete: function () {
-				movieSearchPageHTML = '<br><br><br><div class="row"><div class="col-md-4 col-sm-4"></div><div class="col-md-4 col-sm-4"><h1 style="text-align:center"><b><i> Rezultat pretrage </h1></b></i></div><hr>';
+				movieSearchPageHTML = '<br><br><br><div class="row"><div class="col-md-4 col-sm-4"></div><div class="col-md-4 col-sm-4"><h1 class="title" style="text-align:center"><b><i> Rezultat pretrage </h1></b></i></div><hr>';
 				movieSearchPageHTML += '<div class="col-md-4 col-sm-4"></div></div><div class="row"><div class="col-sm-12 col-md-12"><table class="table table-striped" id="movieListSearch"><thead><tr><th scope="col">#</th><th scope="col">Naslov filma</th><th scope="col">Opis filma</th><th scope="col">Godina</th></tr></thead><tbody>';
 
 				if (movieSearch.length != 0) {
@@ -417,15 +413,19 @@ function searchResult() {
 							+ '<input type="button" style="font-weight:bold;" class="btn btn-link" value="'
 							+ movieSearch[i]['Movie_title'] + '"' + 'onclick="showMoviePage(' + i + ')"' + '</></td>'
 							+ '<td class="descriptionTable">' + movieSearch[i]['Movie_description'] + '</td>'
-							+ '<td class="yearTable">' + movieSearch[i]['Movie_year'] + '</td>';
+							+ '<td class="yearTable">' + movieSearch[i]['Movie_year'] + '.</td>';
 					}
 
 				}
 				movieSearchPageHTML += '</tbody></table><hr></div></div>';
-				movieSearchPageHTML += '<div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="goBack" class="btn btn-link" value="Nazad" /></div>'
+				movieSearchPageHTML += '<div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="goBack" class="btn btn-secondary" value="Nazad" /></div>'
 				movieSearchPageHTML += '<div class="col-md-12 col-sm-12"><div id="chosenMovie"></div></div></div>';
 
 				movieSearchPage.innerHTML += movieSearchPageHTML;
+
+				$(document).on("keydown", "form", function (event) {
+					return event.key != "Enter";
+				});
 
 				$('#logoutNavbarSearch').click(function () { logoutUser(); });
 				$('#searchButton').click(function () {
@@ -445,16 +445,12 @@ function searchResult() {
 	});
 }
 
-//goBack = false;
-
 movieIndex = 0;
 gradeMovie = "";
 
 function showMoviePage(indexVal) {
 	moviePage = true;
 	movieIndex = indexVal;
-	//doubleSearch = false;
-	//razmisli da li zelis da dugme 'nazad' vraca na homepage ili search page
 
 	if (movieSearchResult) {
 		movieSearchResult = false;
@@ -470,8 +466,7 @@ function showMoviePage(indexVal) {
 
 	movieShowHTML = '<nav class="navbar fixed-top navbar-light bg-light justify-content-between">'
 		+ '<span class="navbar-text" style="font-style:italic;font-weight:bolder;color:black;"> Dobrodošli, ' + user_name + '</span>'
-		// + '<a class="navbar-brand" style="font-weight: bold; font-style: italic; text-align:center;">Dobrodošli, ' + user_name + '</a>'
-		+ '<form class="form-inline"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove" aria-label="Search" id="searchBar">'
+		+ '<form class="form-inline" accept-charset="utf-8"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove" aria-label="Search" id="searchBar">'
 		+ '<input type="button" class="btn btn-outline-success my-2 my-sm-0" id="searchButtonMoviePage" value="Pretražite"></form>'
 		+ '<button class="btn btn-link" id="logoutNavbarMoviePage">Odjava</button></nav>';
 
@@ -480,23 +475,23 @@ function showMoviePage(indexVal) {
 	movie = movieSearch[indexVal];
 
 	movieShowHTML = '<br><br><br><div class="row"><div class="col-md-4 col-sm-4"></div>'
-		+ '<div class="col-md-4 col-sm-4"><h1 style="text-align:center; font-weight:bold; font-style:italic;">'
-		+ movie['Movie_title'] + '(' + movie['Movie_year'] + ')</h1></div></div>';
+		+ '<div class="col-md-4 col-sm-4"><h1 class="title" style="text-align:center; font-weight:bold; font-style:italic;">'
+		+ movie['Movie_title'] + ' (' + movie['Movie_year'] + ')</h1></div></div>';
 
 	movieShowHTML += '<div class="row"><div class="col-md-1 col-sm-1"></div><div class="col-md-3 col-sm-3 left"> <scan class="part"> Opis filma: </scan>'
 		+ '<p class="mainPart">' + movie['Movie_description'] + '</p><scan class="part"> Žanr:</scan><p class="mainPart">' + movie['Movie_genre'] + '</p><scan class="part"> Scenarista: </scan> '
 		+ '<p class="mainPart">' + movie['Movie_screenwriter'] + '</p><scan class="part"> Režiser: </scan><p class="mainPart">' + movie['Movie_director'] + '</p><scan class="part"> Produkcija: </scan> '
 		+ '<p class="mainPart">' + movie['Movie_studio'] + '</p><scan class="part"> Trajanje: </scan><p class="mainPart">' + movie['Movie_length']
-		+ '</p></div><div class="col-sm-4 col-md-4"><img class="rounded imgPoster" src="' + movie['Movie_poster'] + '" alt="poster">'
+		+ ' minut/a </p></div><div class="col-sm-4 col-md-4"><img class="rounded imgPoster" src="' + movie['Movie_poster'] + '" alt="poster">'
 		+ '</div><div class="col-sm-3 col-md-3"> <scan class="part"> Glavni glumci: </scan> <ul class="mainPart">';
 
 	actors = JSON.parse(movie['Movie_actors']);
 	for (k = 0; k < Object.keys(actors).length; k++) {
 		movieShowHTML += '<li>' + actors["glumac" + (k + 1)] + '</li>';
 	}
-	movieShowHTML += '</ul><br><br><h5 id="currGrade" style="text-align:center; font-weight:bold; font-style:italic;"></h5>';
+	movieShowHTML += '</ul><br><br><h5 class="userGrade" id="currGrade" style="text-align:center; font-weight:bold; font-style:italic;"></h5>';
 
-	movieShowHTML += '<br><br><h5 style="text-align:center; font-weight:bold; font-style:italic;">'
+	movieShowHTML += '<br><br><h5 class="userGrade" style="text-align:center; font-weight:bold; font-style:italic;">'
 		+ 'Da li vam se dopada film? Ocenite film i pomozite drugima pri odluci o gledanju filma. <br> Kliknite na ocenu koju želite da date filmu </h5><br>'
 		+ '<div id="grades" style="text-align:center;">'
 		+ '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups"><div class="btn-group mr-2" role="group" aria-label="First group">'
@@ -515,10 +510,14 @@ function showMoviePage(indexVal) {
 		document.getElementById("currGrade").innerText = "Ocena filma: " + (movie['Movie_grade'] / movie['Grade_counter']).toPrecision(3);
 	}
 
-	movieShowHTML = '<br><div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="goBack" class="btn btn-link" value="Nazad" /></div>'
+	movieShowHTML = '<br><div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="goBack" class="btn btn-secondary" value="Nazad" /></div>'
 	movieShowHTML += '<div class="col-md-12 col-sm-12"><div id="chosenMovie"></div></div></div></div>';
 
 	movieShow.innerHTML += movieShowHTML;
+
+	$(document).on("keydown", "form", function (event) {
+		return event.key != "Enter";
+	});
 
 	$(document).ready(function () {
 		$('#logoutNavbarMoviePage').click(function () { logoutUser(); });
@@ -576,7 +575,6 @@ function showAdminPage() {
 	$(document).ready(function () {
 		$.ajax({
 			url: 'read.php',
-			//dataType: 'json',
 			success: function (array_movies) {
 				data = JSON.parse(array_movies);
 			},
@@ -592,7 +590,7 @@ function showAdminPage() {
 
 				adminPage.innerHTML = adminPageHTML;
 
-				adminPageHTML = '<div class="row"><div class="col-md-4 col-sm-4"></div><div class="col-md-4 col-sm-4"><h1 style="text-align:center"><b><i> Lista filmova </h1></b></i></div><hr>';
+				adminPageHTML = '<div class="row"><div class="col-md-4 col-sm-4"></div><div class="col-md-4 col-sm-4"><h1 style="text-align:center" class="title"><b><i> Lista filmova </h1></b></i></div><hr>';
 				adminPageHTML += '<div class="col-md-4 col-sm-4"></div></div><div class="row"><div class="col-sm-12 col-md-12"><table class="table table-striped" id="movieListAdmin"><thead><tr><th scope="col">#</th><th scope="col">Naslov filma</th><th scope="col"></th><th scope="col"></th></tr></thead><tbody>';
 
 				for (i = 0; i < data.length; i++) {
@@ -656,7 +654,7 @@ function updateTable(id, i) {
 	movieData = [];
 
 	text = '<p style="background-color:white; text-align:center;"><i><b>Izmena informacija o filmu:<br></i></b></p><hr /><br>'
-		+ '<form action="" method="POST" name="movieChange" id="movieChange">'
+		+ '<form action="" method="POST" name="movieChange" id="movieChange" accept-charset="utf-8">'
 		+ '<div class="form-group"><div class="form-group"><label><b><i>Naslov filma: </b></i></label>'
 		+ '<input type="text" id="title" class="form-control"/></div>'
 		+ '<div class="form-group"><label><b><i>Opis filma: </b></i></label>'
@@ -800,8 +798,8 @@ function addMovie() {
 	$("#chosenMovie").text("");
 	document.getElementById("addMovie").disabled = true;
 
-	text = '<p style="background-color:white; text-align:center;"><i><b>Izmena informacija o filmu:<br></i></b></p><hr /><br>'
-		+ '<form action="" method="POST" name="movieAdd" id="movieAdd">'
+	text = '<p style="background-color:white; text-align:center;"><i><b>Dodavanje novog filma:<br></i></b></p><hr /><br>'
+		+ '<form action="" method="POST" name="movieAdd" id="movieAdd" accept-charset="utf-8">'
 		+ '<div class="form-group"><div class="form-group"><label><b><i>Naslov filma: </b></i></label>'
 		+ '<input type="text" id="titleAdd" class="form-control"/></div>'
 		+ '<div class="form-group"><label><b><i>Opis filma: </b></i></label>'
