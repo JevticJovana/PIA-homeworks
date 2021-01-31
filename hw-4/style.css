@@ -36,22 +36,6 @@ body {
 @media (min-width: 1500px) { #bodyContainer::after { background-image: url(images/body.jpg); } }
 @media (min-width: 1760px) { #bodyContainer::after { background-image: url(images/body.jpg); } } 
 
-
-/* #bodyContainer::after {
-	content: "";
-	opacity: 0.3;
-	position: absolute;
-	background-image: url("images/body.jpg");
-    background-repeat: repeat;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	margin: 0 auto;
-	z-index: -1;
-	height: 100%;
-} */
-
 div {
 	color: black;
 }
@@ -63,7 +47,6 @@ h1 {
 }
 
 #regForm, #logForm {
-	/*background-color: white;*/
 	font-size: 25px;
 }
 
@@ -83,44 +66,21 @@ thead {
 
 #movieListAdmin, #movieListSearch {
 	background-color: white;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 #chosenMovie {
 	background-color: white;
 	font-weight: bold;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 #logoutNavbar, #logoutNavbarUser, #logoutNavbarSearch, #logoutNavbarMoviePage, #goBack {
 	font-weight: bold;
 	font-style: italic;
 }
-#logoutNavbar:hover {
+#logoutNavbar:hover,  #logoutNavbarUser:hover, #logoutNavbarSearch:hover, #logoutNavbarMoviePage:hover, #goBack:hover {
 	background-color: #80808061;
-	/* font-weight: bold;
-	font-style: italic; */
-}
-
-#logoutNavbarUser:hover {
-	background-color: #80808061;
-	/* font-weight: bold;
-	font-style: italic; */
-}
-
-#logoutNavbarSearch:hover {
-	background-color: #80808061;
-	/* font-weight: bold;
-	font-style: italic; */
-}
-
-#logoutNavbarMoviePage:hover {
-	background-color: #80808061;
-	/* font-weight: bold;
-	font-style: italic; */
-}
-#goBack:hover {
-	background-color: #80808061;
-	/* font-weight: bold;
-	font-style: italic; */
 }
 
 .imgHome {
@@ -137,20 +97,24 @@ thead {
 	font-size: 25px;
 	font-weight: bolder;
 	font-style: italic;
+	font-family: 'Yusei Magic', sans-serif;
 }
 
 .mainPart {
 	font-style: oblique;
-	/*font-weight: bold;*/
 	font-size: 20px;
-	/*background-color: white;*/
+	font-family: 'Ubuntu', sans-serif;
+}
 
+.userGrade {
+	font-family: 'Yusei Magic', sans-serif;
 }
 
 #grades {
     margin-left: auto;
     margin-right: auto;
-    width: 100px;
+	width: 100px;
+	font-family: 'Yusei Magic', sans-serif;
 }
 
 .descriptionTable {
@@ -162,8 +126,7 @@ thead {
 	font-style: italic;
 	font-weight: bold;
 }
-/* #homePosters {
-	background-image: url("images/body.jpg");
-	opacity: 0.3;
-	background-repeat: repeat;
-} */
+
+.title {
+	font-family: 'Yusei Magic', sans-serif;
+}
