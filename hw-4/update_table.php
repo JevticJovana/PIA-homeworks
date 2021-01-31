@@ -1,5 +1,6 @@
 <?php
     require 'database_include.php';
+    header('Content-Type: text/html; charset=utf-8');
 
     $movie = $_POST['movie'];
     $decoded = json_decode($movie, true);
@@ -19,11 +20,11 @@
     $id = $decoded['Id'];
 
     $sql = "UPDATE listmovies SET Movie_title = '$title',
-    Movie_description = '$description', Movie_genre = '$genre', 
-    Movie_screenwriter = '$screenwriter', Movie_director = '$director',
-    Movie_studio = '$studio', Movie_actors = '$actors', 
-    Movie_year = '$year', Movie_length = '$length', 
-    Movie_poster = '$location' WHERE Movie_id = $id";
+        Movie_description = '$description', Movie_genre = '$genre', 
+        Movie_screenwriter = '$screenwriter', Movie_director = '$director',
+        Movie_studio = '$studio', Movie_actors = '$actors', 
+        Movie_year = '$year', Movie_length = '$length', 
+        Movie_poster = '$location' WHERE Movie_id = $id";
     $db->query($sql);
     
     if($db->affected_rows >= 0)
