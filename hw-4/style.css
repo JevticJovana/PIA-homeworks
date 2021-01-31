@@ -26,7 +26,7 @@ body {
 	width: 100%; 
 	height: 100%; 
 	z-index: -2; 
-	opacity: 0.3; 
+	opacity: 0.2; 
 }
 @media (min-width: 320px) { #bodyContainer::after { background-image: url(images/body.jpg); } } 
 @media (min-width: 460px) { #bodyContainer::after { background-image: url(images/body.jpg); } } 
@@ -90,7 +90,7 @@ thead {
 	font-weight: bold;
 }
 
-#logoutNavbar, #logoutNavbarUser, #logoutNavbarSearch, #logoutNavbarMoviePage {
+#logoutNavbar, #logoutNavbarUser, #logoutNavbarSearch, #logoutNavbarMoviePage, #goBack {
 	font-weight: bold;
 	font-style: italic;
 }
@@ -113,6 +113,11 @@ thead {
 }
 
 #logoutNavbarMoviePage:hover {
+	background-color: #80808061;
+	/* font-weight: bold;
+	font-style: italic; */
+}
+#goBack:hover {
 	background-color: #80808061;
 	/* font-weight: bold;
 	font-style: italic; */
@@ -143,9 +148,20 @@ thead {
 }
 
 #grades {
-	text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
 }
 
+.descriptionTable {
+	font-style: italic;
+	font-weight: bold;
+}
+
+.yearTable {
+	font-style: italic;
+	font-weight: bold;
+}
 /* #homePosters {
 	background-image: url("images/body.jpg");
 	opacity: 0.3;
