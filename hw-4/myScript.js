@@ -31,7 +31,7 @@ function welcomePage() {
 
 	loginFormHTML = '<div class="row">'
 		+ '<div class="col-md-3 col-sm-3"></div><div class="col-md-6 col-md-offset-3 col-sm-6">'
-		+ '<h1 style="background-color:white; text-align:center;"><i><b>~Prijava za pristup najvećoj bazi filmova~</i></b></h1><hr /><br>'
+		+ '<h1 style="text-align:center;"><i><b>~Prijava za pristup najvećoj bazi filmova~</i></b></h1><hr /><br>'
 		+ '<form action="" method="POST" name="logForm" id="logForm"><div class="form-group">'
 		+ '<label><b><i>Korisničko ime ili e-mail: </b><i></label><input type="text" class="form-control" '
 		+ 'id="usernameLog" name="usernameLog" placeholder="Name"/>'
@@ -75,7 +75,6 @@ function welcomePage() {
 					"User_password": password,
 				};
 				dataJSON = JSON.stringify(data);
-				console.log(dataJSON);
 
 				$.ajax({
 					url: 'login.php',
@@ -83,7 +82,6 @@ function welcomePage() {
 					data: { user: dataJSON },
 					success: function (user_existing) {
 						data = JSON.parse(user_existing);
-						console.log(data);
 						user_name = data['User_name'];
 						if (data['User_existing'] && !(data['User_admin'])) {
 							alert("Uspešno ste se prijavili");
@@ -112,13 +110,11 @@ function welcomePage() {
 						});
 						if (admin) {
 							isAdmin = true;
-							console.log(isAdmin);
 						}
 						else if (user) {
 							isUser = true;
 						}
 						if (isAdmin) {
-							console.log(isAdmin);
 							childNode = document.getElementById("loginForm");
 							document.getElementById("bodyContainer").removeChild(childNode);
 							adminIn = true;
@@ -126,7 +122,6 @@ function welcomePage() {
 							return true;
 						}
 						if (isUser) {
-							console.log(isUser);
 							adminIn = false;
 							childNode = document.getElementById("loginForm");
 							document.getElementById("bodyContainer").removeChild(childNode);
@@ -134,7 +129,7 @@ function welcomePage() {
 							return true;
 						}
 					},
-					error: function(xhr, status, error){
+					error: function (xhr, status, error) {
 						alert('Nije uspela konekcija');
 					}
 				});
@@ -160,7 +155,7 @@ function registrationPage() {
 
 	registrationFormHTML = '<div class="row">'
 		+ '<div class="col-md-3 col-sm-3"></div><div class="col-md-6 col-md-offset-3 col-sm-6">'
-		+ '<h1 style="background-color:white; text-align:center;"><i><b>~Registracija za pristup najvećoj bazi filmova~</i></b></h1><hr /><br>'
+		+ '<h1 style="text-align:center;"><i><b>~Registracija za pristup najvećoj bazi filmova~</i></b></h1><hr /><br>'
 		+ '<form action="" method="POST" name="regForm" id="regForm"><div class="form-group">'
 		+ '<div class="form-group"><label><b><i>Ime: </b><i></label>'
 		+ '<input type="text" class="form-control" id="nameReg" placeholder="Name"/><p id="p1"></p></div>'
@@ -229,17 +224,13 @@ function registrationPage() {
 					"User_password": password,
 				};
 				dataJSON = JSON.stringify(data);
-				console.log(dataJSON);
 
 				$.ajax({
 					url: 'registration.php',
 					type: 'post',
 					data: { user: dataJSON },
 					success: function (array) {
-						console.log("ovde sam");
-						console.log(array);
 						data = JSON.parse(array);
-						console.log(data);
 						user_name = data['User_name'];
 						if (data['User_exists']) {
 							if (data['Email_existing']) {
@@ -266,10 +257,7 @@ function registrationPage() {
 						}
 					},
 					complete: function () {
-						console.log('kraj');
-						console.log(isUser);
 						if (isUser) {
-							console.log(isUser);
 							childNode = document.getElementById("registrationForm");
 							document.getElementById("bodyContainer").removeChild(childNode);
 							showUserPage();
@@ -279,7 +267,7 @@ function registrationPage() {
 							event.preventDefault()
 						});
 					},
-					error: function(xhr, status, error){
+					error: function (xhr, status, error) {
 						alert('Nije uspela konekcija');
 					}
 				});
@@ -300,7 +288,6 @@ function showUserPage() {
 	mainPage = true;
 
 	if (moviePage) {
-		console.log("evo me");
 		moviePage = false;
 		childNode = document.getElementById("moviePageShow");
 		document.getElementById("bodyContainer").removeChild(childNode);
@@ -320,11 +307,11 @@ function showUserPage() {
 	//doubleSearch = false;
 
 	userPageHTML = '<nav class="navbar fixed-top navbar-light bg-light justify-content-between">'
-		+ '<span class="navbar-text" style="font-style=italic;font-weight:bolder;color:black;"> Dobrodošli, ' + user_name + '</span>'
+		+ '<span class="navbar-text" style="font-style:italic;font-weight:bolder;color:black;"> Dobrodošli, ' + user_name + '</span>'
 		// + '<a class="navbar-brand" style="font-weight: bold; font-style: italic; text-align:center;">Dobrodošli, ' + user_name + '</a>'
 		+ '<form class="form-inline"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove" aria-label="Search" id="searchBar">'
 		+ '<input type="button" class="btn btn-outline-success my-2 my-sm-0" id="searchButton" value="Pretražite"></form>'
-		+ '<button class="btn btn-outline-dark" id="logoutNavbarUser">Odjava</button></nav>';
+		+ '<button class="btn btn-link" id="logoutNavbarUser">Odjava</button></nav>';
 
 	userPage.innerHTML = userPageHTML;
 
@@ -380,7 +367,6 @@ function searchResult() {
 	movieSearchResult = true;
 
 	if (moviePage) {
-		console.log("evo me");
 		moviePage = false;
 		childNode = document.getElementById("moviePageShow");
 		document.getElementById("bodyContainer").removeChild(childNode);
@@ -402,17 +388,16 @@ function searchResult() {
 	document.getElementById("bodyContainer").appendChild(movieSearchPage);
 
 	movieSearchPageHTML = '<nav class="navbar fixed-top navbar-light bg-light justify-content-between">'
-		+ '<span class="navbar-text" style="font-style=italic;font-weight:bolder;color:black;"> Dobrodošli, ' + user_name + '</span>'
+		+ '<span class="navbar-text" style="font-style:italic;font-weight:bolder;color:black;"> Dobrodošli, ' + user_name + '</span>'
 		// + '<a class="navbar-brand" style="font-weight: bold; font-style: italic; text-align:center;">Dobrodošli, ' + user_name + '</a>'
 		+ '<form class="form-inline"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove" aria-label="Search" id="searchBar">'
 		+ '<input type="button" class="btn btn-outline-success my-2 my-sm-0" id="searchButton" value="Pretražite"></form>'
-		+ '<button class="btn btn-outline-dark" id="logoutNavbarSearch">Odjava</button></nav>';
+		+ '<button class="btn btn-link" id="logoutNavbarSearch">Odjava</button></nav>';
 
 	movieSearchPage.innerHTML = movieSearchPageHTML;
 
 	movieSearch = { "Search": movieSearch };
 	dataJSON = JSON.stringify(movieSearch);
-	console.log(dataJSON);
 
 	$(document).ready(function () {
 		$.ajax({
@@ -421,7 +406,6 @@ function searchResult() {
 			data: { search: dataJSON },
 			success: function (movie_results) {
 				movieSearch = JSON.parse(movie_results);
-				console.log(movieSearch);
 			},
 			complete: function () {
 				movieSearchPageHTML = '<br><br><br><div class="row"><div class="col-md-4 col-sm-4"></div><div class="col-md-4 col-sm-4"><h1 style="text-align:center"><b><i> Rezultat pretrage </h1></b></i></div><hr>';
@@ -430,7 +414,7 @@ function searchResult() {
 				if (movieSearch.length != 0) {
 					for (i = 0; i < movieSearch.length; i++) {
 						movieSearchPageHTML += '<tr><th scope="row"></th><td class="titleTable">'
-							+ '<input type="button" style="font-weight:bold;" class="btn btn-light" value="'
+							+ '<input type="button" style="font-weight:bold;" class="btn btn-link" value="'
 							+ movieSearch[i]['Movie_title'] + '"' + 'onclick="showMoviePage(' + i + ')"' + '</></td>'
 							+ '<td class="descriptionTable">' + movieSearch[i]['Movie_description'] + '</td>'
 							+ '<td class="yearTable">' + movieSearch[i]['Movie_year'] + '</td>';
@@ -438,7 +422,7 @@ function searchResult() {
 
 				}
 				movieSearchPageHTML += '</tbody></table><hr></div></div>';
-				movieSearchPageHTML += '<div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="goBack" class="btn btn-outline-dark" value="Nazad" /></div>'
+				movieSearchPageHTML += '<div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="goBack" class="btn btn-link" value="Nazad" /></div>'
 				movieSearchPageHTML += '<div class="col-md-12 col-sm-12"><div id="chosenMovie"></div></div></div>';
 
 				movieSearchPage.innerHTML += movieSearchPageHTML;
@@ -454,7 +438,7 @@ function searchResult() {
 					return false
 				});
 			},
-			error: function(xhr, status, error){
+			error: function (xhr, status, error) {
 				alert('Nije uspela konekcija');
 			}
 		});
@@ -464,6 +448,7 @@ function searchResult() {
 //goBack = false;
 
 movieIndex = 0;
+gradeMovie = "";
 
 function showMoviePage(indexVal) {
 	moviePage = true;
@@ -471,7 +456,7 @@ function showMoviePage(indexVal) {
 	//doubleSearch = false;
 	//razmisli da li zelis da dugme 'nazad' vraca na homepage ili search page
 
-	if (movieSearchPage) {
+	if (movieSearchResult) {
 		movieSearchResult = false;
 		childNode = document.getElementById("movieSearch");
 		document.getElementById("bodyContainer").removeChild(childNode);
@@ -484,16 +469,15 @@ function showMoviePage(indexVal) {
 	document.getElementById("bodyContainer").appendChild(movieShow);
 
 	movieShowHTML = '<nav class="navbar fixed-top navbar-light bg-light justify-content-between">'
-		+ '<span class="navbar-text" style="font-style=italic;font-weight:bolder;color:black;"> Dobrodošli, ' + user_name + '</span>'
+		+ '<span class="navbar-text" style="font-style:italic;font-weight:bolder;color:black;"> Dobrodošli, ' + user_name + '</span>'
 		// + '<a class="navbar-brand" style="font-weight: bold; font-style: italic; text-align:center;">Dobrodošli, ' + user_name + '</a>'
 		+ '<form class="form-inline"><input class="form-control mr-sm-2" type="search" placeholder="Pretražite filmove" aria-label="Search" id="searchBar">'
 		+ '<input type="button" class="btn btn-outline-success my-2 my-sm-0" id="searchButtonMoviePage" value="Pretražite"></form>'
-		+ '<button class="btn btn-outline-dark" id="logoutNavbarMoviePage">Odjava</button></nav>';
+		+ '<button class="btn btn-link" id="logoutNavbarMoviePage">Odjava</button></nav>';
 
 	movieShow.innerHTML = movieShowHTML;
 
 	movie = movieSearch[indexVal];
-	console.log(movie);
 
 	movieShowHTML = '<br><br><br><div class="row"><div class="col-md-4 col-sm-4"></div>'
 		+ '<div class="col-md-4 col-sm-4"><h1 style="text-align:center; font-weight:bold; font-style:italic;">'
@@ -505,46 +489,89 @@ function showMoviePage(indexVal) {
 		+ '<p class="mainPart">' + movie['Movie_studio'] + '</p><scan class="part"> Trajanje: </scan><p class="mainPart">' + movie['Movie_length']
 		+ '</p></div><div class="col-sm-4 col-md-4"><img class="rounded imgPoster" src="' + movie['Movie_poster'] + '" alt="poster">'
 		+ '</div><div class="col-sm-3 col-md-3"> <scan class="part"> Glavni glumci: </scan> <ul class="mainPart">';
-	//console.log(movie['Movie_actors'].length);
+
 	actors = JSON.parse(movie['Movie_actors']);
-	console.log(actors);
-	console.log(Object.keys(actors).length);
 	for (k = 0; k < Object.keys(actors).length; k++) {
 		movieShowHTML += '<li>' + actors["glumac" + (k + 1)] + '</li>';
 	}
-	movieShowHTML += '</ul></div></div>';
+	movieShowHTML += '</ul><br><br><h5 id="currGrade" style="text-align:center; font-weight:bold; font-style:italic;"></h5>';
+
+	movieShowHTML += '<br><br><h5 style="text-align:center; font-weight:bold; font-style:italic;">'
+		+ 'Da li vam se dopada film? Ocenite film i pomozite drugima pri odluci o gledanju filma. <br> Kliknite na ocenu koju želite da date filmu </h5><br>'
+		+ '<div id="grades" style="text-align:center;">'
+		+ '<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups"><div class="btn-group mr-2" role="group" aria-label="First group">'
+		+ '<button type="button" id="grade1" onclick="sendGrades(' + movie['Movie_id'] + ',' + movieIndex + ',' + 1 + ')" class="btn btn-secondary">1</button>'
+		+ '<button type="button" id="grade2" onclick="sendGrades(' + movie['Movie_id'] + ',' + movieIndex + ',' + 2 + ')" class="btn btn-secondary">2</button>'
+		+ '<button type="button" id="grade3" onclick="sendGrades(' + movie['Movie_id'] + ',' + movieIndex + ',' + 3 + ')" class="btn btn-secondary">3</button>'
+		+ '<button type="button" id="grade4" onclick="sendGrades(' + movie['Movie_id'] + ',' + movieIndex + ',' + 4 + ')" class="btn btn-secondary">4</button>'
+		+ '<button type="button" id="grade5" onclick="sendGrades(' + movie['Movie_id'] + ',' + movieIndex + ',' + 5 + ')" class="btn btn-secondary">5</button></div></div></div></div></div>';
 
 	movieShow.innerHTML += movieShowHTML;
 
-	movieShowHTML = '<br><br><br><div class="row"><div class="col-md-4 col-sm-4"></div>'
-		+ '<div class="col-md-4 col-sm-4"><h5 style="text-align:center; font-weight:bold; font-style:italic;">'
-		+ 'Da li vam se dopada film? Ocenite film i pomozite drugima pri odluci o gledanju filma. <br> Unesite Vašu ocenu od 1 do 5 </h5><div id="grades">'
-		+ '<input type="number" id="grade" name="grade" min="1" max="5" step="1" value="1">'
-		+ '<br><input type="button" value="Potvrdi ocenu" style="font-weight:bold; color:black;" id="sendGrade" class="btn btn-light" value="Potvrdi ocenu"></div></div></div>';
-	movieShow.innerHTML += movieShowHTML;
+	if (movie['Grade_counter'] == null) {
+		document.getElementById("currGrade").innerText = "Budite prvi koji će ovaj film oceniti";
+	}
+	else {
+		document.getElementById("currGrade").innerText = "Ocena filma: " + (movie['Movie_grade'] / movie['Grade_counter']).toPrecision(3);
+	}
 
-	movieShowHTML = '<br><div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="goBack" class="btn btn-outline-dark" value="Nazad" /></div>'
+	movieShowHTML = '<br><div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="goBack" class="btn btn-link" value="Nazad" /></div>'
 	movieShowHTML += '<div class="col-md-12 col-sm-12"><div id="chosenMovie"></div></div></div></div>';
 
 	movieShow.innerHTML += movieShowHTML;
 
-	$('#logoutNavbarMoviePage').click(function () { logoutUser(); });
-	$('#sendGrade').click(function () { sendGrades(); return false; });
-	$('#searchButtonMoviePage').click(function () {
-		searchResult();
-		return false
+	$(document).ready(function () {
+		$('#logoutNavbarMoviePage').click(function () { logoutUser(); });
+		$('#searchButtonMoviePage').click(function () {
+			searchResult();
+			return false
+		});
+		$('#goBack').click(function () {
+			showUserPage();
+			return false
+		});
 	});
-	$('#goBack').click(function () {
-		showUserPage();
-		return false
-	});
+}
 
+function sendGrades(index, movieIndex, grade) {
+	gradeMovie = {
+		"Id": index,
+		"Grade": grade
+	};
+
+	gradeJSON = JSON.stringify(gradeMovie);
+
+	$(document).ready(function () {
+		$.ajax({
+			url: 'grade.php',
+			type: 'post',
+			data: { 'grade': gradeJSON },
+			success: function (grade) {
+				gradeMovie = JSON.parse(grade);
+			},
+			complete: function () {
+				if (gradeMovie["Grade"]) {
+					alert("Hvala na Vašoj oceni!");
+					childNode = document.getElementById("moviePageShow");
+					document.getElementById("bodyContainer").removeChild(childNode);
+					movieSearch[movieIndex] = gradeMovie["Movie"];
+					showMoviePage(movieIndex);
+					return true;
+				}
+				else {
+					alert("Vaša ocena nije poslata. Pokušajte ponovo.");
+					return false;
+				}
+			},
+			error: function (xhr, status, error) {
+				alert('Nije uspela konekcija');
+			}
+		});
+	});
 }
 
 data = "";
 function showAdminPage() {
-
-	console.log("adminPage");
 
 	$(document).ready(function () {
 		$.ajax({
@@ -552,7 +579,6 @@ function showAdminPage() {
 			//dataType: 'json',
 			success: function (array_movies) {
 				data = JSON.parse(array_movies);
-				console.log(data);
 			},
 			complete: function () {
 				adminPage = document.createElement("div");
@@ -562,7 +588,7 @@ function showAdminPage() {
 				document.getElementById("bodyContainer").appendChild(adminPage);
 
 				adminPageHTML = '<nav class="navbar fixed-top navbar-light bg-light justify-content-between">'
-					+ '<button class="btn btn-outline-dark" id="logoutNavbar">Odjava</button></nav><br><br><br>';
+					+ '<button class="btn btn-link" id="logoutNavbar">Odjava</button></nav><br><br><br>';
 
 				adminPage.innerHTML = adminPageHTML;
 
@@ -571,21 +597,21 @@ function showAdminPage() {
 
 				for (i = 0; i < data.length; i++) {
 					adminPageHTML += '<tr><th scope="row" id="row_' + (i + 1) + '"></th><td class="titleTable">'
-						+ '<input type="button" style="font-weight:bold;" class="btn btn-light" value="'
+						+ '<input type="button" style="font-weight:bold;" class="btn btn-link" value="'
 						+ data[i]['Movie_title'] + '"' + 'onclick="showMovie(' + (i + 1) + ')"' + '</></td><td class="linkUpdateTable">'
 						+ '<input type="button" style="font-weight:bold; color:green;" class="btn btn-light" value="Ažuriraj podatke o filmu" onclick="updateTable(' + data[i]['Movie_id'] + "," + i + ')"/></td>' + '<td class="linkDeleteTable">'
 						+ '<input type="button" style="font-weight:bold; color:red;" class="btn btn-light" value="Obriši film iz baze" onclick="deleteTable(' + data[i]['Movie_id'] + ')"/></td></tr>';
 				}
 
 				adminPageHTML += '</tbody></table><hr></div></div>';
-				adminPageHTML += '<div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="addMovie" class="btn btn-light" value="Dodaj film" onclick="addMovie()" /></div>'
-				adminPageHTML += '<div class="col-md-12 col-sm-12"><div id="chosenMovie"></div></div></div>';
+				adminPageHTML += '<div class="row"><div class="col-md-12 col-sm-12"><input type="button" style="font-weight:bold; color:black;" id="addMovie" class="btn btn-primary" value="Dodaj film" onclick="addMovie()" /></div>'
+				adminPageHTML += '<div class="col-md-12 col-sm-12"><div id="chosenMovie" tabindex="0"></div></div></div>';
 
 				adminPage.innerHTML += adminPageHTML;
 
 				$('#logoutNavbar').click(function () { logoutUser(); });
 			},
-			error: function(xhr, status, error){
+			error: function (xhr, status, error) {
 				alert('Nije uspela konekcija');
 			}
 		});
@@ -596,7 +622,6 @@ function logoutUser() {
 
 	$(document).ready(function () {
 		if (adminIn) {
-			console.log(adminIn);
 			childNode = document.getElementById("adminPage");
 			document.getElementById("bodyContainer").removeChild(childNode);
 		}
@@ -628,8 +653,6 @@ function updateTable(id, i) {
 	document.getElementById("addMovie").disabled = false;
 	$("#chosenMovie").text("");
 
-	console.log("updateMovie");
-
 	movieData = [];
 
 	text = '<p style="background-color:white; text-align:center;"><i><b>Izmena informacija o filmu:<br></i></b></p><hr /><br>'
@@ -649,6 +672,7 @@ function updateTable(id, i) {
 		+ '<div class="form-group"><input type="submit" class="btn btn-primary btn-block" id="change" name ="change" value="Potvrdi izmene"/></div></div></form>';
 
 	document.getElementById("chosenMovie").innerHTML = text;
+	document.getElementById("chosenMovie").focus();
 
 	$(document).ready(function () {
 		$("#title").val(data[i]['Movie_title']);
@@ -684,7 +708,7 @@ function updateTable(id, i) {
 			};
 
 			dataJSON = JSON.stringify(movieData);
-			console.log(dataJSON);
+
 			movieUpdated = "";
 			$.ajax({
 				url: 'update_table.php',
@@ -707,7 +731,7 @@ function updateTable(id, i) {
 						return false;
 					}
 				},
-				error: function(xhr, status, error){
+				error: function (xhr, status, error) {
 					alert('Nije uspela konekcija');
 				}
 			});
@@ -717,8 +741,6 @@ function updateTable(id, i) {
 
 function deleteTable(id) {
 
-	console.log("deleteMovie");
-
 	$(document).ready(function () {
 		$("#movieChange").submit(function (event) {
 			event.preventDefault()
@@ -726,7 +748,7 @@ function deleteTable(id) {
 
 		movieData = { "Id": id };
 		dataJSON = JSON.stringify(movieData);
-		console.log(movieData);
+
 		$.ajax({
 			url: 'delete_table.php',
 			data: { movie: dataJSON },
@@ -745,7 +767,7 @@ function deleteTable(id) {
 					return true;
 				}
 			},
-			error: function(xhr, status, error){
+			error: function (xhr, status, error) {
 				alert('Nije uspela konekcija');
 			}
 		});
@@ -754,12 +776,11 @@ function deleteTable(id) {
 }
 
 function showMovie(id) {
-	console.log(data[id - 1]);
-	console.log("showMovie");
+
 	$(document).ready(function () {
 		document.getElementById("addMovie").disabled = false;
 		$("#chosenMovie").text("");
-		text = "<i style='color:green;'>Naslov filma: </i>" + data[id - 1]['Movie_title'] +
+		text = "<br><br><i style='color:green;'>Naslov filma: </i>" + data[id - 1]['Movie_title'] +
 			"<br><i style='color:green;'>Opis filma: </i>" + data[id - 1]['Movie_description'] +
 			"<br><i style='color:green;'>Žanr filma: </i>" + data[id - 1]['Movie_genre'] +
 			"<br><i style='color:green;'>Scenarista: </i>" + data[id - 1]['Movie_screenwriter'] +
@@ -771,14 +792,13 @@ function showMovie(id) {
 			"<br><i style='color:green;'>Poster(lokacija): </i>" + data[id - 1]['Movie_poster'];
 
 		document.getElementById("chosenMovie").innerHTML = text;
+		document.getElementById("chosenMovie").focus();
 	});
 }
 
 function addMovie() {
 	$("#chosenMovie").text("");
 	document.getElementById("addMovie").disabled = true;
-
-	console.log("addMovie");
 
 	text = '<p style="background-color:white; text-align:center;"><i><b>Izmena informacija o filmu:<br></i></b></p><hr /><br>'
 		+ '<form action="" method="POST" name="movieAdd" id="movieAdd">'
@@ -797,10 +817,10 @@ function addMovie() {
 		+ '<div class="form-group"><input type="submit" class="btn btn-primary btn-block" id="add" name ="add" value="Potvrdi unos"/></div></div></form>';
 
 	document.getElementById("chosenMovie").innerHTML = text;
+	document.getElementById("chosenMovie").focus();
 
 	$(document).ready(function () {
 		$("#add").click(function () {
-			console.log("dodajem");
 			$("#movieAdd").submit(function (event) {
 				event.preventDefault()
 			});
@@ -820,7 +840,7 @@ function addMovie() {
 
 			dataJSON = JSON.stringify(movieData);
 			movieAdded = "";
-			console.log(dataJSON);
+
 			$.ajax({
 				url: 'add_table.php',
 				type: 'post',
@@ -830,7 +850,6 @@ function addMovie() {
 				},
 				complete: function () {
 					document.getElementById("addMovie").disabled = false;
-					console.log(movieAdded);
 					if (movieAdded) {
 						alert("Uspešno ste dodali novi film");
 						document.getElementById("chosenMovie").innerHTML = "";
@@ -844,11 +863,10 @@ function addMovie() {
 						return false;
 					}
 				},
-				error: function(xhr, status, error){
+				error: function (xhr, status, error) {
 					alert('Nije uspela konekcija');
 				}
 			});
 		});
 	});
-
 }
