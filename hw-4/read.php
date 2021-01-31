@@ -1,5 +1,6 @@
 <?php
     require 'database_include.php';
+    header('Content-Type: text/html; charset=utf-8');
 
     $result = $db->query('SELECT * FROM listmovies');
     $array_movies = [];
